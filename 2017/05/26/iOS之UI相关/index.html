@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="列举了 iOS 开发中常见的基本问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS之UI相关">
+<meta property="og:url" content="http://lxthyme.com/2017/05/26/iOS%E4%B9%8BUI%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="列举了 iOS 开发中常见的基本问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-05-26T06:35:07.000Z">
+<meta property="article:modified_time" content="2018-01-22T07:47:22.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="iOS Basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://lxthyme.com/2017/05/26/iOS%E4%B9%8BUI%E7%9B%B8%E5%85%B3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2017&#x2F;05&#x2F;26&#x2F;iOS%E4%B9%8BUI%E7%9B%B8%E5%85%B3&#x2F;&quot;,&quot;path&quot;:&quot;2017&#x2F;05&#x2F;26&#x2F;iOS之UI相关&#x2F;&quot;,&quot;title&quot;:&quot;iOS之UI相关&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>iOS之UI相关 | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0app%E5%90%AF%E5%8A%A8%E5%91%A8%E6%9C%9F"><span class="nav-number">1.</span> <span class="nav-text">简述app启动周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E8%AF%B4%E8%AF%B4UIApplication%E7%9A%84%E4%BD%9C%E7%94%A8%E5%8F%8A%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">简单的说说UIApplication的作用及继承关系。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0%E6%8E%A8%E9%80%81%E6%B6%88%E6%81%AF%E5%8E%9F%E7%90%86%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">简述推送消息原理。</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%89%E5%85%B3%E4%BA%8EdeviceToken%E5%8F%98%E5%8C%96%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">有关于deviceToken变化问题：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B3%A8%E5%86%8C%E8%BF%9C%E7%A8%8B%E9%80%9A%E7%9F%A5%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">注册远程通知方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%8E%A5%E6%94%B6%E5%88%B0%E7%9A%84%E8%BF%9C%E7%A8%8B%E9%80%9A%E7%9F%A5%E6%B6%88%E6%81%AF"><span class="nav-number">3.3.</span> <span class="nav-text">处理接收到的远程通知消息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UITableView%E3%80%81UIButton%E3%80%81UIWindow%E6%8E%A7%E4%BB%B6%E7%9A%84%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%E3%80%82"><span class="nav-number">4.</span> <span class="nav-text">UITableView、UIButton、UIWindow控件的继承关系。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UIView%E4%B8%8EUIButton%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9FUISwitch%E5%91%A2%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">UIView与UIButton有什么区别？UISwitch呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0UIControl%E7%9A%84%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB%EF%BC%8C%E5%AE%83%E7%94%A8%E6%9D%A5%E5%81%9A%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">简述UIControl的继承关系，它用来做什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0UIViewController%E4%B8%ADview%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E3%80%82"><span class="nav-number">7.</span> <span class="nav-text">简述UIViewController中view的生命周期。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0UITableView%E7%9A%84%E4%BB%A3%E7%90%86%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F%E3%80%82"><span class="nav-number">8.</span> <span class="nav-text">简述UITableView的代理方法调用顺序。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%A0%E5%9C%A8%E7%94%A8CollectionView%E7%9A%84%E6%97%B6%E5%80%99%E6%9C%89%E6%B2%A1%E6%9C%89%E9%81%87%E5%88%B0%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E9%97%AE%E9%A2%98%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%9A%84%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">你在用CollectionView的时候有没有遇到什么问题？问题是怎么解决的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0UIResponder%E7%B1%BB%E7%9A%84%E4%BD%9C%E7%94%A8%E3%80%82"><span class="nav-number">10.</span> <span class="nav-text">简述UIResponder类的作用。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9B%91%E5%90%ACView%E7%9A%84%E8%A7%A6%E6%91%B8%E4%BA%8B%E4%BB%B6%EF%BC%9F%E4%BA%8B%E4%BB%B6%E5%A6%82%E4%BD%95%E4%BC%A0%E9%80%92%EF%BC%9F%E7%AE%80%E8%BF%B0%E8%A7%86%E5%9B%BE%E7%9A%84%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E3%80%82"><span class="nav-number">11.</span> <span class="nav-text">如何监听View的触摸事件？事件如何传递？简述视图的响应者链。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE"><span class="nav-number">12.</span> <span class="nav-text">响应者链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CALayer%E4%B8%8EUIView%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">CALayer与UIView有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96UITableView"><span class="nav-number">14.</span> <span class="nav-text">如何优化UITableView?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0%E5%8A%A0%E8%BD%BD%E5%88%B0%E6%8E%A7%E5%88%B6%E5%99%A8%E4%B8%8A%E7%9A%84%E6%A0%B9%E8%A7%86%E5%9B%BE%E5%88%9B%E5%BB%BA%E4%B8%8E%E5%8A%A0%E8%BD%BD%E6%97%B6%E6%9C%BA%E3%80%82"><span class="nav-number">15.</span> <span class="nav-text">简述加载到控制器上的根视图创建与加载时机。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0UITableView%E4%B8%ADcell%E7%9A%84%E5%A4%8D%E7%94%A8%E6%9C%BA%E5%88%B6%E3%80%82"><span class="nav-number">16.</span> <span class="nav-text">简述UITableView中cell的复用机制。</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2017/05/26/iOS%E4%B9%8BUI%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS之UI相关
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-26 14:35:07" itemprop="dateCreated datePublished" datetime="2017-05-26T14:35:07+08:00">2017-05-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-22 15:47:22" itemprop="dateModified" datetime="2018-01-22T15:47:22+08:00">2018-01-22</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>列举了 iOS 开发中常见的基本问题</p>
+<span id="more"></span>
+
+
+<h4 id="简述app启动周期"><a href="#简述app启动周期" class="headerlink" title="简述app启动周期"></a>简述app启动周期</h4><ol>
+<li><p>打开应用程序，它先会执行main函数，再执行<code>UIApplicationMain</code>函数。初始化 UIApplication，设置代理对象，开启事件循环，调用代理方法进行事件处理。</p>
+</li>
+<li><p>首先会调用<code>application:didFinishLaunchingWithOptions:</code>代理方法。</p>
+</li>
+<li><p>接下来会调用<code>applicationDidBecomeActive:</code>代理方法。监听系统事件，结束程序。</p>
+</li>
+<li><p>当程序正常退出<code>UIApplicationMain</code>函数才会返回。</p>
+</li>
+</ol>
+<p><strong>监听系统事件:</strong></p>
+<ol>
+<li><p>锁屏后app会调用<code>applicationWillResignActive:</code>代理方法。然后接着调用 <code>applicationDidEnterBackground:</code>方法。</p>
+</li>
+<li><p>解锁后app会调用<code>applicationWillEnterForeground:</code>代理方法。接着调用<code>applicationDidBecomeActive</code>代理方法。</p>
+</li>
+<li><p>杀死进程会调用<code>applicationWillTerminate:</code>代理方法。</p>
+</li>
+<li><p>接听电话：先调用<code>applicationWillResignActive:</code>代理方法。挂断电话后会直接进入应用调：<code>applicationDidBecomeActive:</code>代理方法。</p>
+</li>
+<li><p>出现内存警告会调用：<code>applicationDidReceiveMemoryWarning:</code>代理方法</p>
+</li>
+</ol>
+<h4 id="简单的说说UIApplication的作用及继承关系。"><a href="#简单的说说UIApplication的作用及继承关系。" class="headerlink" title="简单的说说UIApplication的作用及继承关系。"></a>简单的说说UIApplication的作用及继承关系。</h4><ol>
+<li><p>UIApplication是继承UIResponder的。UIApplication是整个应用程序的核<br>心。每一个程序在运行期必须有UIApplication(或子类)的一个实例（有且只有一<br>个），通过[UIApplication shareApplication]可以得到这个单例实例。</p>
+</li>
+<li><p>UIApplication帮助管理应用程序的生命周期，通过delegate来履行任务。</p>
+</li>
+<li><p>UIApplication可以接收事件，把所有用户事件都放入队列，逐个处理。它会发送<br>当前事件给一个合适的目标控件进行处理。他还将部分事件转给delegate对象来处理。<br>delegate可以处理的事件包括：应用程序的生命周期事件（如程序启动与关闭）、系统事<br>件（如来电）。</p>
+</li>
+</ol>
+<h4 id="简述推送消息原理。"><a href="#简述推送消息原理。" class="headerlink" title="简述推送消息原理。"></a>简述推送消息原理。</h4><ol>
+<li>应用程序注册接收远程通知的时候，系统会发送请求到APNS服务器。APNS服务器收到请求后会根据请求所带的key值生成一个独一无二的deviceToken。然后APNS服务器会把deviceToken包装成NSData对象发送到对应请求的App上。接下来APP把deviceToken发送给我们自己的服务器（Provider）。服务器接收到deviceToken后进行存储等相关处理。服务器会把推送给用户的消息发送至APNS服务器，最后APNS服务器再发送通知给app。</li>
+</ol>
+<h5 id="有关于deviceToken变化问题："><a href="#有关于deviceToken变化问题：" class="headerlink" title="有关于deviceToken变化问题："></a>有关于deviceToken变化问题：</h5><p>重新安装或卸载应用程序，deviceToken不会发生变化。<br>系统升级deviceToken可能会发生变化。<br>抹掉所有内容和设置，重置设备后，deviceToken会变化</p>
+<h5 id="注册远程通知方法"><a href="#注册远程通知方法" class="headerlink" title="注册远程通知方法"></a>注册远程通知方法</h5><p>注册远程通知：<br>一般在app启动完成的时候注册远程通知，注册方法一般在didFinishLaunchingWithOptions：代理方法中<br>处理注册远程通知回调方法：<br>注册成功会回调didRegisterForRometoNotificationsWithDeviceToken:其中的deviceToken参数就是APNS服务器返回的token。<br>注册失败会回调didFailToRegisterForRemoteNotificationsWithError:</p>
+<h5 id="处理接收到的远程通知消息"><a href="#处理接收到的远程通知消息" class="headerlink" title="处理接收到的远程通知消息"></a>处理接收到的远程通知消息</h5><p>程序启动时，app从Terminate状态进入Foreground状态时，会根据didFinishLaunchingWithOptions:代理方法中的luanchOptions参数来获取userInfo。判断是否有推送消息。方式如下：</p>
+<p>// userInfo为收到远程通知的内容<br>NSDictionary*userInfo=launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];<br>if (userInfo) { // 有推送的消息，处理推送的消息 }<br>如果app处于Background状态时，只有用户点击了通知消息才会调用didReceiveRemoteNotification:，如果当前app处于Foreground状态，会直接调用该方法。</p>
+<h4 id="UITableView、UIButton、UIWindow控件的继承关系。"><a href="#UITableView、UIButton、UIWindow控件的继承关系。" class="headerlink" title="UITableView、UIButton、UIWindow控件的继承关系。"></a>UITableView、UIButton、UIWindow控件的继承关系。</h4><ul>
+<li><code>UITableView</code> -&gt; <code>UIScrollView</code> -&gt; <code>UIView</code> -&gt; <code>UIResponder</code> -&gt; <code>NSObject</code></li>
+<li><code>UIButton</code> -&gt; <code>UIControl</code> -&gt; <code>UIView</code> -&gt; <code>UIResponder</code> -&gt; <code>NSObject</code></li>
+<li><code>UIWindow</code> -&gt; <code>UIView</code> -&gt; <code>UIRepsonder</code> -&gt; <code>NSObject</code></li>
+</ul>
+<ol>
+<li><p>UITableView的继承关系：UITableView继承UIScrollView。UIScrollView继承UIView。UIView继承UIResponder。UIResponder继承NSObject。</p>
+</li>
+<li><p>UIButton的继承关系：UIButton继承UIControl，UIControl继承UIView。UIView继承UIResponder，UIResponder继承NSObject。</p>
+</li>
+<li><p>UIWindow继承UIView。</p>
+</li>
+</ol>
+<h4 id="UIView与UIButton有什么区别？UISwitch呢？"><a href="#UIView与UIButton有什么区别？UISwitch呢？" class="headerlink" title="UIView与UIButton有什么区别？UISwitch呢？"></a>UIView与UIButton有什么区别？UISwitch呢？</h4><p>UIView继承自UIResponder，它能响应某个动作。UIButton继承UIControl。它不仅可以响应某个动作，还能为某个对象添加对应的动作加以响应。</p>
+<p>UIButton也能实现UISwitch的功能，它们的区别是分发的事件不一样。</p>
+<h4 id="简述UIControl的继承关系，它用来做什么？"><a href="#简述UIControl的继承关系，它用来做什么？" class="headerlink" title="简述UIControl的继承关系，它用来做什么？"></a>简述UIControl的继承关系，它用来做什么？</h4><p><code>UIControl</code> -&gt; <code>UIView</code> -&gt; <code>UIResponder</code> -&gt; <code>NSObject</code></p>
+<p>UIControl继承UIView。UIView继承UIResponder，UIResponder继承NSObject。它能为某个特定对象添加事件。能进行事件分发。</p>
+<h4 id="简述UIViewController中view的生命周期。"><a href="#简述UIViewController中view的生命周期。" class="headerlink" title="简述UIViewController中view的生命周期。"></a>简述UIViewController中view的生命周期。</h4><p><strong>控制器出现时:</strong> <code>loadView</code> -&gt; <code>viewDidLoad</code> -&gt; <code>viewWillAppear</code> -&gt; <code>viewWillLayoutSubviews</code> -&gt; <code>viewDidLayoutSubviews</code> -&gt;<code>viewDidAppear</code></p>
+<p><strong>控制器消失时:</strong> <code>viewWillDisAppear</code> -&gt; <code>viewDidDisAppear</code> -&gt; <code>dealloc</code></p>
+<p>先调用<code>loadView</code>方法<br>再调用<code>viewDidLoad</code>方法<br>调用<code>viewWillAppear</code>方法<br>调用<code>viewWillLayoutSubviews</code>方法<br>调用<code>viewDidLayoutSubviews</code>方法<br>再调用<code>viewDidApper</code>方法</p>
+<p>控制器消失的时候:<br>先调用<code>viewWillDisappear</code>方法<br>再调用<code>viewDidDisapper</code>方法<br>最后调用<code>dealloc</code>方法</p>
+<p>当出现内存警告的时候会调用<code>didReceiveMemoryWarning</code>方法。</p>
+<h4 id="简述UITableView的代理方法调用顺序。"><a href="#简述UITableView的代理方法调用顺序。" class="headerlink" title="简述UITableView的代理方法调用顺序。"></a>简述UITableView的代理方法调用顺序。</h4><p>先调用<code>numberOfSectionsInTableView:</code>方法，</p>
+<p><code>numberOfRowsInSection:</code></p>
+<p><code>heightForRowAtIndexPath:</code></p>
+<p><code>cellForRowAtIndexPath:</code></p>
+<h4 id="你在用CollectionView的时候有没有遇到什么问题？问题是怎么解决的？"><a href="#你在用CollectionView的时候有没有遇到什么问题？问题是怎么解决的？" class="headerlink" title="你在用CollectionView的时候有没有遇到什么问题？问题是怎么解决的？"></a>你在用CollectionView的时候有没有遇到什么问题？问题是怎么解决的？</h4><p>刷新的时候会闪烁。在刷新的时候会默认附加一个隐式的fade动画。可以通过取消动画来达到取消闪烁的目的。</p>
+<h4 id="简述UIResponder类的作用。"><a href="#简述UIResponder类的作用。" class="headerlink" title="简述UIResponder类的作用。"></a>简述UIResponder类的作用。</h4><p>UIResponder类主要是为那些需要响应并处理事件的对象定义了一组接口。这些事件包括：**触摸事件(Touch Event)<strong>、</strong>运动事件(Motion Event)<strong>、</strong>远程控制事件(Remote Control Event)**（如耳机控制音视频播放）。当用户触发某一事件时，UIKit会创建一个UIEvent事件对象，事件对象会加入到一个FIFO先进先出的队列中。UIApplication对象处理事件时，会从队列头部取出一个事件对象进行分发。</p>
+<h4 id="如何监听View的触摸事件？事件如何传递？简述视图的响应者链。"><a href="#如何监听View的触摸事件？事件如何传递？简述视图的响应者链。" class="headerlink" title="如何监听View的触摸事件？事件如何传递？简述视图的响应者链。"></a>如何监听View的触摸事件？事件如何传递？简述视图的响应者链。</h4><p>可以通过View类的<strong>touchesBegan</strong>、<strong>touchesMoved</strong>、<strong>touchesEnded</strong>、<strong>touchesCancelled</strong>方法监听视图的触摸。</p>
+<p>当触摸一个视图对象时，系统会捕捉此事件，并给这个事件创建一个UIEvent对象，将此对象加入当前应用程序的事件队列中，然后由UIApplication对象从队列中取出来进行事件分发，首先会分发给UIWindow对象，然后由UIWindow对象分发给触摸的视图对象，即第一响应者对象。</p>
+<h4 id="响应者链"><a href="#响应者链" class="headerlink" title="响应者链"></a>响应者链</h4><p>当事件交给第一响应者处理，如果第一响应者不处理，事件就会沿着响应者链向上传递，交给下一个响应者。</p>
+<p>一般来说，第一响应者是一个视图对象或者是其子类对象，当其被触摸后事件被交由它处理，如果它不处理，事件就会被传递给它的视图控制器对象，然后是它的父视图对象，以此类推，直到顶层视图。接下来会沿着顶层视图到UIWindow对象，再到UIApplication对象。</p>
+<p>如果整个过程都没有响应这个事件，该事件就会被丢弃。</p>
+<p>一般情况下，在响应者链中只要有对象处理事件，事件就会停止传递。</p>
+<p>有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
+<h4 id="CALayer与UIView有什么区别？"><a href="#CALayer与UIView有什么区别？" class="headerlink" title="CALayer与UIView有什么区别？"></a>CALayer与UIView有什么区别？</h4><ol>
+<li><p>UIView是iOS系统中界面元素的基础。所有的界面元素都继承自它，他本身完全是由CoreAnimation来实现的。它真正的绘图部分，是由一个叫CALayer的类来管理。UIView本身更像是一个CALayer的管理器，访问它的跟绘图和跟坐标有关的属性，如frame,bounds等，实际上内部都是在访问它所包含的CALayer的相关属性。</p>
+</li>
+<li><p>UIView有个layer属性，可以返回它的主CALayer实例，UIView有一个layerClass方法，返回主layer所使用的类，UIView的子类，可以通过重载这个方法，来让UIView使用不同的CALayer来显示。</p>
+</li>
+<li><p>UIView的CALayer类似UIView的子View树形结构，也可以向它的layer上添加子layer。</p>
+</li>
+<li><p>CALayer坐标系统与UIView有点不一样，它多了一个<strong>anchorPoint</strong>的属性。</p>
+</li>
+<li><p>UIView的layer树形在系统内部，被系统维护着三份copy。<strong>逻辑树</strong>，<strong>动画树</strong>，<strong>显示树</strong>。</p>
+</li>
+<li><p>CALayer默认修改属性支持隐式动画</p>
+</li>
+<li><p>View可以接受并处理事件，Layer不可以。</p>
+</li>
+</ol>
+<h4 id="如何优化UITableView"><a href="#如何优化UITableView" class="headerlink" title="如何优化UITableView?"></a>如何优化UITableView?</h4><ol>
+<li>复用单元格</li>
+<li>尽量使用不透明的视图，单元格中少使用动画。</li>
+<li>图片使用异步加载，设置图片加载的并发数。</li>
+<li>滑动时不加载图片，停止滑动时再加载。</li>
+<li>图片和文字可以直接drawRect</li>
+<li>如果cell是动态行高，计算缓存单元格高度</li>
+<li>尽量少reloadData，只reloadRowsAtIndexPaths</li>
+<li>cell高度固定直接用rowHeight属性设置高度。</li>
+</ol>
+<h4 id="简述加载到控制器上的根视图创建与加载时机。"><a href="#简述加载到控制器上的根视图创建与加载时机。" class="headerlink" title="简述加载到控制器上的根视图创建与加载时机。"></a>简述加载到控制器上的根视图创建与加载时机。</h4><p>视图控制器的根视图加载是在UIViewController的<code>loadView</code>方法中。当视图控制中的<code>loadView</code>方法被调用时，会先通过NSBundle加载，通过控制器的类名作为xib文件名加载xib文件，如果存在，加载View为根视图，如果不存在，则自动创建一个View作为根视图。</p>
+<h4 id="简述UITableView中cell的复用机制。"><a href="#简述UITableView中cell的复用机制。" class="headerlink" title="简述UITableView中cell的复用机制。"></a>简述UITableView中cell的复用机制。</h4><p>UITableView会创建屏幕显示单元格个数（N）+1个单元格，当滑动到第N+2个单元格时就会复用第1个单元格。</p>
+<p>UITableView中还有单元格复用池的概念。<br>当tableView调用初始化单元格协议方法获取单元格时，它会根据你设定的<code>reuse identifier</code>先去复用池中查找可用的复用单元格，找到则复用该单元格，没找到这创建一个新的单元格对象。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/25/URL Scheme/" rel="bookmark">URL Scheme</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Run Loop/" rel="bookmark">iOS - Run Loop</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/27/iOS - 动画篇/" rel="bookmark">iOS - 动画篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - 推送/" rel="bookmark">iOS - 推送</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 演变『简略』/" rel="bookmark">iOS - 演变『简略』</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ios-basic/" rel="tag"># iOS Basic</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/12/07/iOS%20-%20%E7%AE%97%E6%B3%95/" rel="next" title="iOS - 算法">
+                  iOS - 算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

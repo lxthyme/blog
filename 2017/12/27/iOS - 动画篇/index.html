@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="常用到的动画库 Facebook 开源动画库 Pop: facebook&#x2F;pop · GitHub, 介绍: Playing with Pop (i)  Canvas: Canvas – Simplify iOS Development, 介绍: Animate in Xcode Without Code   拿 Canvas 来和 Pop 比其实不大合适，虽然两者都自称「动画库」，但是「库」这个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 动画篇">
+<meta property="og:url" content="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="常用到的动画库 Facebook 开源动画库 Pop: facebook&#x2F;pop · GitHub, 介绍: Playing with Pop (i)  Canvas: Canvas – Simplify iOS Development, 介绍: Animate in Xcode Without Code   拿 Canvas 来和 Pop 比其实不大合适，虽然两者都自称「动画库」，但是「库」这个">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/448AC10E5EE157E583F6C292ED5CA371.jpg">
+<meta property="og:image" content="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/026DF4A096462D5B3381FD2BD0C33937.jpg">
+<meta property="article:published_time" content="2017-12-27T08:55:30.000Z">
+<meta property="article:modified_time" content="2018-01-24T03:10:47.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="iOS Basic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/448AC10E5EE157E583F6C292ED5CA371.jpg">
+
+
+<link rel="canonical" href="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2017&#x2F;12&#x2F;27&#x2F;iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87&#x2F;&quot;,&quot;path&quot;:&quot;2017&#x2F;12&#x2F;27&#x2F;iOS - 动画篇&#x2F;&quot;,&quot;title&quot;:&quot;iOS - 动画篇&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>iOS - 动画篇 | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%88%B0%E7%9A%84%E5%8A%A8%E7%94%BB%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">常用到的动画库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas"><span class="nav-number">1.1.</span> <span class="nav-text">Canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pop"><span class="nav-number">1.2.</span> <span class="nav-text">Pop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-Animation"><span class="nav-number">2.</span> <span class="nav-text">Core Animation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83%E5%8A%A8%E7%94%BB%E7%B1%BB%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">核心动画类的层次结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84keyPath"><span class="nav-number">2.2.</span> <span class="nav-text">具有动画效果的keyPath</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CATransform3D"><span class="nav-number">2.2.1.</span> <span class="nav-text">CATransform3D</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%8B%E8%BD%AC"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">旋转</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%A9%E6%94%BE"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">缩放</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B9%B3%E7%A7%BB"><span class="nav-number">2.2.1.3.</span> <span class="nav-text">平移</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CGPoint-Key-Paths"><span class="nav-number">2.2.2.</span> <span class="nav-text">CGPoint Key Paths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CGRect-Key-Paths"><span class="nav-number">2.2.3.</span> <span class="nav-text">CGRect Key Paths</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shadow-Key-Path"><span class="nav-number">2.2.4.</span> <span class="nav-text">Shadow Key Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Others"><span class="nav-number">2.2.5.</span> <span class="nav-text">Others</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">2.3.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.4.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CABasicAnimation"><span class="nav-number">3.</span> <span class="nav-text">CABasicAnimation</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CASpringAnimation"><span class="nav-number">3.1.</span> <span class="nav-text">CASpringAnimation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CASpringAnimation%E7%9A%84%E9%87%8D%E8%A6%81%E5%B1%9E%E6%80%A7"><span class="nav-number">3.1.1.</span> <span class="nav-text">CASpringAnimation的重要属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CASpringAnimation%E5%92%8CUIView%E7%9A%84SpringAnimation%E5%AF%B9%E6%AF%94"><span class="nav-number">3.1.2.</span> <span class="nav-text">CASpringAnimation和UIView的SpringAnimation对比</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAKeyframeAnimation"><span class="nav-number">4.</span> <span class="nav-text">CAKeyframeAnimation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CATransition"><span class="nav-number">5.</span> <span class="nav-text">CATransition</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAAnimationGroup"><span class="nav-number">6.</span> <span class="nav-text">CAAnimationGroup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CATransaction"><span class="nav-number">7.</span> <span class="nav-text">CATransaction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">7.1.</span> <span class="nav-text">事务的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CA%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%8F%AF%E8%AE%BE%E7%BD%AE%E5%B1%9E%E6%80%A7-%E4%BC%9A%E8%A6%86%E7%9B%96%E9%9A%90%E5%BC%8F%E5%8A%A8%E7%94%BB%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.2.</span> <span class="nav-text">CA事务的可设置属性(会覆盖隐式动画的设置)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS - 动画篇
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-27 16:55:30" itemprop="dateCreated datePublished" datetime="2017-12-27T16:55:30+08:00">2017-12-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-24 11:10:47" itemprop="dateModified" datetime="2018-01-24T11:10:47+08:00">2018-01-24</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="常用到的动画库"><a href="#常用到的动画库" class="headerlink" title="常用到的动画库"></a>常用到的动画库</h2><ol>
+<li><p>Facebook 开源动画库 Pop: <a target="_blank" rel="noopener" href="https://github.com/facebook/pop">facebook/pop · GitHub</a>, 介绍: <a target="_blank" rel="noopener" href="http://codeplease.io/playing-with-pop-i/">Playing with Pop (i)</a></p>
+</li>
+<li><p>Canvas: <a target="_blank" rel="noopener" href="http://canvaspod.io/">Canvas – Simplify iOS Development</a>, 介绍: <a target="_blank" rel="noopener" href="https://medium.com/learning-xcode-as-a-designer/20c82a904164">Animate in Xcode Without Code</a></p>
+</li>
+</ol>
+<p>拿 <code>Canvas</code> 来和 <code>Pop</code> 比其实不大合适，虽然两者都自称「动画库」，但是「库」这个词的含义有所区别。本质上 <code>Canvas</code> 是一个「动画合集」而 <code>Pop</code> 是一个「动画引擎」。</p>
+<h3 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h3><p>Canvas 的目的是「Animate in Xcode Without Code」。开发者可以通过在 Storyboard 中指定 <code>User Defined Runtime Attributes</code> 来实现一些 Canvas 中预设的动画，也就是他网站上能看到的那些。但是除了更改动画的 <code>delay</code> 和 <code>duration</code> 基本上不能调整其他的参数。</p>
+<h3 id="Pop"><a href="#Pop" class="headerlink" title="Pop"></a>Pop</h3><p><code>Pop</code> 就不一样了。如果说 <code>Canvas</code> 是对 <code>Core Animation</code> 的封装，<code>Pop</code> 则是对 <code>Core Animation</code>（以及 <code>UIDynamics</code>）的再实现。</p>
+<p><code>Pop</code> 语法上和 <code>Core Animation</code> 相似，效果上则不像 <code>Canvas</code> 那么生硬（时间四等分，振幅硬编码）。这使得对 <code>Core Animation</code> 有了解的程序员可以很轻松地把原来的「静态动画」转换成「动态动画」。</p>
+<p>同时 Pop 又往前多走了一步。既然动画的本质是根据时间函数来做插值，那么理论上任何一个对象的任何一个值都可以用来做插值，而不仅仅是 Core Animation 里定死的那一堆大小、位移、旋转、缩放等 animatable properties。</p>
+<span id="more"></span>
+
+
+<p><img data-src="448AC10E5EE157E583F6C292ED5CA371.jpg" alt="IMAGE"></p>
+<h2 id="Core-Animation"><a href="#Core-Animation" class="headerlink" title="Core Animation"></a>Core Animation</h2><p>Core Animation(核心动画)是一组功能强大、效果华丽的动画API，无论在iOS系统或者在你开发的App中，都有大量应用。<br>核心动画所在的位置如下所示:</p>
+<h3 id="核心动画类的层次结构"><a href="#核心动画类的层次结构" class="headerlink" title="核心动画类的层次结构"></a>核心动画类的层次结构</h3><p><img data-src="026DF4A096462D5B3381FD2BD0C33937.jpg" alt="IMAGE"></p>
+<ol>
+<li>CAAnimation是所有动画对象的父类，实现CAMediaTiming协议，负责控制动画的时间、速度和时间曲线等等，是一个抽象类，不能直接使用。</li>
+<li>CAPropertyAnimation: 是CAAnimation的子类，它支持动画地显示图层的keyPath，一般不直接使用。</li>
+<li>iOS9.0之后新增CASpringAnimation类，它实现弹簧效果的动画，是CABasicAnimation的子类。</li>
+</ol>
+<p>综上，核心动画类中可以直接使用的类有：</p>
+<ol>
+<li>CABasicAnimation<ul>
+<li>CASpringAnimation</li>
+</ul>
+</li>
+<li>CAKeyframeAnimation</li>
+<li>CATransition</li>
+<li>CAAnimationGroup</li>
+</ol>
+<h3 id="具有动画效果的keyPath"><a href="#具有动画效果的keyPath" class="headerlink" title="具有动画效果的keyPath"></a>具有动画效果的keyPath</h3><h4 id="CATransform3D"><a href="#CATransform3D" class="headerlink" title="CATransform3D"></a>CATransform3D</h4><h5 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h5><p>transform.rotation.x<br>transform.rotation.y<br>transform.rotation.z<br>transform.rotation</p>
+<h5 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h5><p>transform.scale.x<br>transform.scale.y<br>transform.scale.z<br>transform.scale</p>
+<h5 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h5><p>translation.x<br>translation.y<br>translation.z<br>translation</p>
+<h4 id="CGPoint-Key-Paths"><a href="#CGPoint-Key-Paths" class="headerlink" title="CGPoint Key Paths"></a>CGPoint Key Paths</h4><p>position.x<br>position.y</p>
+<h4 id="CGRect-Key-Paths"><a href="#CGRect-Key-Paths" class="headerlink" title="CGRect Key Paths"></a>CGRect Key Paths</h4><p>bounds.origin.x<br>bounds.origin.y<br>bounds.origin<br>bounds.size.width<br>bounds.size.height<br>bounds.size</p>
+<h4 id="Shadow-Key-Path"><a href="#Shadow-Key-Path" class="headerlink" title="Shadow Key Path"></a>Shadow Key Path</h4><p>shadowColor<br>shadowOffset<br>shadowOpacity<br>shadowRadius</p>
+<h4 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h4><p>opacity<br>backgroundColor<br>cornerRadius<br>borderWidth<br>contents </p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><p><strong>核心动画</strong>和<strong>UIView动画</strong>的区别:</p>
+<ol>
+<li>UIView动画可以看成是对核心动画的封装，和UIView动画不同的是，通过核心动画改变layer的状态（比如position），动画执行完毕后实际上是没有改变的（表面上看起来已改变）。</li>
+</ol>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>总体来说核心动画的优点有：</p>
+<ol>
+<li>性能强大，使用硬件加速，可以同时向多个图层添加不同的动画效果</li>
+<li>接口易用，只需要少量的代码就可以实现复杂的动画效果。</li>
+<li>运行在后台线程中，在动画过程中可以响应交互事件（UIView动画默认动画过程中不响应交互事件）。</li>
+</ol>
+<h2 id="CABasicAnimation"><a href="#CABasicAnimation" class="headerlink" title="CABasicAnimation"></a>CABasicAnimation</h2><ol>
+<li><code>CABasicAnimation</code>可以设定keyPath的起点，终点的值，动画会沿着设定点进行移动，</li>
+<li><code>CABasicAnimation</code>可以看成是只有两个关键点的特殊的<code>CAKeyFrameAnimation</code>。</li>
+</ol>
+<h3 id="CASpringAnimation"><a href="#CASpringAnimation" class="headerlink" title="CASpringAnimation"></a>CASpringAnimation</h3><p>CASpringAnimation是iOS9新加入动画类型，是CABasicAnimation的子类，用于实现弹簧动画。</p>
+<h4 id="CASpringAnimation的重要属性"><a href="#CASpringAnimation的重要属性" class="headerlink" title="CASpringAnimation的重要属性"></a>CASpringAnimation的重要属性</h4><ol>
+<li>mass：质量（影响弹簧的惯性，质量越大，弹簧惯性越大，运动的幅度越大）</li>
+<li>stiffness：弹性系数（弹性系数越大，弹簧的运动越快）</li>
+<li>damping：阻尼系数（阻尼系数越大，弹簧的停止越快）</li>
+<li>initialVelocity：初始速率（弹簧动画的初始速度大小，弹簧运动的初始方向与初始速率的正负一致，若初始速率为0，表示忽略该属性）</li>
+<li>settlingDuration：结算时间（根据动画参数估算弹簧开始运动到停止的时间，动画设置的时间最好根据此时间来设置）</li>
+</ol>
+<h4 id="CASpringAnimation和UIView的SpringAnimation对比"><a href="#CASpringAnimation和UIView的SpringAnimation对比" class="headerlink" title="CASpringAnimation和UIView的SpringAnimation对比"></a>CASpringAnimation和UIView的SpringAnimation对比</h4><ol>
+<li>CASpringAnimation 可以设置更多影响弹簧动画效果的属性，可以实现更复杂的弹簧动画效果，且可以和其他动画组合。</li>
+<li>UIView的SpringAnimation实际上就是通过CASpringAnimation来实现。</li>
+</ol>
+<h2 id="CAKeyframeAnimation"><a href="#CAKeyframeAnimation" class="headerlink" title="CAKeyframeAnimation"></a>CAKeyframeAnimation</h2><ol>
+<li>可以设定keyPath起点、中间关键点（不止一个）、终点的值，每一帧所对应的时间，动画会沿着设定点进行移动</li>
+</ol>
+<h2 id="CATransition"><a href="#CATransition" class="headerlink" title="CATransition"></a>CATransition</h2><p>转场动画，比UIVIew转场动画具有更多的动画效果，比如nav的默认Push视图的效果就是通过CATransition的kCATransitionPush类型来实现。</p>
+<h2 id="CAAnimationGroup"><a href="#CAAnimationGroup" class="headerlink" title="CAAnimationGroup"></a>CAAnimationGroup</h2><p>使用Group可以将多个动画合并一起加入到层中，Group中所有动画并发执行，可以方便地实现需要多种类型动画的场景。</p>
+<h2 id="CATransaction"><a href="#CATransaction" class="headerlink" title="CATransaction"></a>CATransaction</h2><p>在核心动画里面存在事务(CATransaction)这样一个概念，它负责协调多个动画原子更新显示操作。</p>
+<p>简单来说事务是核心动画里面的一个基本的单元，动画的产生必然伴随着layer的Animatable属性的变化，而layer属性的变化必须属于某一个事务。</p>
+<p>因此，核心动画依赖事务。</p>
+<h3 id="事务的作用"><a href="#事务的作用" class="headerlink" title="事务的作用"></a>事务的作用</h3><p>保证一个或多个layer的一个或多个属性变化同时进行</p>
+<p>事务分为隐式和显式:</p>
+<ol>
+<li>隐式：没有明显调用事务的方法，由系统自动生成事务。比如直接设置一个layer的position属性，则会在当前线程自动生成一个事务，并在下一个runLoop中自动commit事务。</li>
+<li>显式：明显调用事务的方法（<code>[CATransaction begin]</code>和<code>[CATransaction commit]</code>）。</li>
+</ol>
+<h3 id="CA事务的可设置属性-会覆盖隐式动画的设置"><a href="#CA事务的可设置属性-会覆盖隐式动画的设置" class="headerlink" title="CA事务的可设置属性(会覆盖隐式动画的设置)"></a>CA事务的可设置属性(会覆盖隐式动画的设置)</h3><ul>
+<li>animationDuration：动画时间</li>
+<li>animationTimingFunction：动画时间曲线</li>
+<li>disableActions：是否关闭动画</li>
+<li>completionBlock：动画执行完毕的回调</li>
+</ul>
+<p>事务支持嵌套使用：当最外层的事务commit后动画才会开始。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/25/URL Scheme/" rel="bookmark">URL Scheme</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Run Loop/" rel="bookmark">iOS - Run Loop</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - 推送/" rel="bookmark">iOS - 推送</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 演变『简略』/" rel="bookmark">iOS - 演变『简略』</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 架构/" rel="bookmark">iOS - 架构</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ios-basic/" rel="tag"># iOS Basic</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/12/27/%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81Block/" rel="prev" title="堆、栈、Block">
+                  <i class="fa fa-chevron-left"></i> 堆、栈、Block
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/12/27/iOS%20%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="iOS 中的设计模式">
+                  iOS 中的设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

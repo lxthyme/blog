@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="tags:    iOS Basic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 追踪 App 崩溃, 解决线上闪退">
+<meta property="og:url" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="tags:    iOS Basic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/9E554523E0048855F12FD3CD3EA43503.jpg">
+<meta property="og:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/F5588C90FB5F8D70187B1CDBF120D675.jpg">
+<meta property="article:published_time" content="2018-01-08T09:59:23.000Z">
+<meta property="article:modified_time" content="2018-01-22T08:00:42.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="未分类">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/9E554523E0048855F12FD3CD3EA43503.jpg">
+
+
+<link rel="canonical" href="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2018&#x2F;01&#x2F;08&#x2F;iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;01&#x2F;08&#x2F;iOS - 追踪 App 崩溃, 解决线上闪退&#x2F;&quot;,&quot;title&quot;:&quot;iOS - 追踪 App 崩溃, 解决线上闪退&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>iOS - 追踪 App 崩溃, 解决线上闪退 | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%BF%BD%E8%B8%AAapp%E5%B4%A9%E6%BA%83%E7%8E%87%EF%BC%8C%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80"><span class="nav-number">1.</span> <span class="nav-text">如何追踪app崩溃率，如何解决线上闪退</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9D%E5%8F%8DiOS%E7%B3%BB%E7%BB%9F%E8%A7%84%E5%88%99%E4%BA%A7%E7%94%9Fcrash%E7%9A%84%E4%B8%89%E7%A7%8D%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">违反iOS系统规则产生crash的三种类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E9%80%BB%E8%BE%91%E7%9A%84Bug"><span class="nav-number">1.2.</span> <span class="nav-text">应用逻辑的Bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash%E7%9A%84%E6%94%B6%E9%9B%86"><span class="nav-number">1.3.</span> <span class="nav-text">crash的收集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash%E4%BF%A1%E6%81%AF"><span class="nav-number">1.4.</span> <span class="nav-text">crash信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80"><span class="nav-number">1.5.</span> <span class="nav-text">解决线上闪退</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS - 追踪 App 崩溃, 解决线上闪退
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-08 17:59:23" itemprop="dateCreated datePublished" datetime="2018-01-08T17:59:23+08:00">2018-01-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-22 16:00:42" itemprop="dateModified" datetime="2018-01-22T16:00:42+08:00">2018-01-22</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p> tags:<br>    iOS Basic</p>
+<span id="more"></span>
+
+
+<h2 id="如何追踪app崩溃率，如何解决线上闪退"><a href="#如何追踪app崩溃率，如何解决线上闪退" class="headerlink" title="如何追踪app崩溃率，如何解决线上闪退"></a>如何追踪app崩溃率，如何解决线上闪退</h2><p>当iOS设备上的App应用闪退时，操作系统会生成一个crash日志，保存在设备上。crash日志上有很多有用的信息，比如每个正在执行线程的完整堆栈跟踪信息和内存映像，这样就能够通过解析这些信息进而定位crash发生时的代码逻辑，从而找到App闪退的原因。通常来说，crash产生来源于两种问题：</p>
+<ol>
+<li>违反iOS系统规则导致的crash</li>
+<li>App代码逻辑BUG导致的crash，</li>
+</ol>
+<p>下面分别对他们进行分析。</p>
+<h3 id="违反iOS系统规则产生crash的三种类型"><a href="#违反iOS系统规则产生crash的三种类型" class="headerlink" title="违反iOS系统规则产生crash的三种类型"></a>违反iOS系统规则产生crash的三种类型</h3><ol>
+<li><p>内存报警闪退</p>
+<p> 当iOS检测到内存过低时，它的VM系统会发出低内存警告通知，尝试回收一些内存；如果情况没有得到足够的改善，iOS会终止后台应用以回收更多内存；最后，如果内存还是不足，那么正在运行的应用可能会被终止掉。在Debug模式下，可以主动将客户端执行的动作逻辑写入一个log文件中，这样程序童鞋可以将内存预警的逻辑写入该log文件，当发生如下截图中的内存报警时，就是提醒当前客户端性能内存吃紧，可以通过<code>Instruments</code>工具中的<code>Allocations</code>和 <code>Leaks</code>模块库来发现内存分配问题和内存泄漏问题。</p>
+</li>
+<li><p>响应超时</p>
+<p> 当应用程序对一些特定的事件（比如启动、挂起、恢复、结束）响应不及时，苹果的<code>Watchdog</code>机制会把应用程序干掉，并生成一份相应的crash日志。这些事件与下列UIApplicationDelegate方法相对应,当遇到Watchdog日志时，可以检查上图中的几个方法是否有比较重的阻塞UI的动作。</p>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">application:didFinishLaunchingWithOptions:　</span><br><span class="line">applicationWillResignActive:</span><br><span class="line">applicationDidEnterBackground:　</span><br><span class="line">applicationWillEnterForeground:</span><br><span class="line">applicationDidBecomeActive:</span><br><span class="line">applicationWillTerminate:</span><br></pre></td></tr></table></figure></li>
+<li><p>用户强制退出</p>
+<p> 一看到“用户强制退出”，首先可能想到的双击Home键，然后关闭应用程序。不过这种场景一般是不会产生crash日志的，因为双击Home键后，所有的应用程序都处于后台状态，而iOS随时都有可能关闭后台进程，当应用阻塞界面并停止响应时这种场景才会产生crash日志。这里指的“用户强制退出”场景，是稍微比较复杂点的操作：先按住电源键,直到出现“滑动关机”的界面时，再按住Home键，这时候当前应用程序会被终止掉，并且产生一份相应事件的crash日志。</p>
+</li>
+</ol>
+<h3 id="应用逻辑的Bug"><a href="#应用逻辑的Bug" class="headerlink" title="应用逻辑的Bug"></a>应用逻辑的Bug</h3><p>大多数闪退崩溃日志的产生都是因为应用中的Bug，这种Bug的错误种类有很多，比如</p>
+<ul>
+<li>SEGV:(Segmentation Violation，段违例)，无效内存地址，比如空指针，未初始化指针，栈溢出等；</li>
+<li>SIGABRT：收到Abort信号，可能自身调用abort()或者收到外部发送过来的信号；</li>
+<li>SIGBUS：总线错误。与SIGSEGV不同的是，SIGSEGV访问的是无效地址（比如虚存映射不到物理内存），而SIGBUS访问的是有效地址，但总线访问异常（比如地址对齐问题）；</li>
+<li>SIGILL：尝试执行非法的指令，可能不被识别或者没有权限；</li>
+<li>SIGFPE：Floating Point Error，数学计算相关问题（可能不限于浮点计算），比如除零操作；</li>
+<li>SIGPIPE：管道另一端没有进程接手数据；</li>
+</ul>
+<p>常见的崩溃原因基本都是代码逻辑问题或资源问题，比如数组越界，访问野指针或者资源不存在，或资源大小写错误等。</p>
+<h3 id="crash的收集"><a href="#crash的收集" class="headerlink" title="crash的收集"></a>crash的收集</h3><p>如果是在windows上你可以通过itools或pp助手等辅助工具查看系统产生的历史crash日志，然后再根据app来查看。如果是在Mac 系统上，只需要打开<code>xcode-&gt;windows-&gt;devices</code>，选择device logs进行查看，如下图，这些crash文件都可以导出来，然后再单独对这个crash文件做处理分析。</p>
+<p><img data-src="9E554523E0048855F12FD3CD3EA43503.jpg" alt="IMAGE"></p>
+<p>市场上已有的商业软件提供crash收集服务，这些软件基本都提供了日志存储，日志符号化解析和服务端可视化管理等服务：</p>
+<ul>
+<li>Crashlytics (<a target="_blank" rel="noopener" href="http://www.crashlytics.com/">www.crashlytics.com</a>)</li>
+<li>Crittercism (<a target="_blank" rel="noopener" href="http://www.crittercism.com/">www.crittercism.com</a>)</li>
+<li>Bugsense (<a target="_blank" rel="noopener" href="http://www.bugsense.com/">www.bugsense.com</a>)</li>
+<li>HockeyApp (<a target="_blank" rel="noopener" href="http://www.hockeyapp.net/">www.hockeyapp.net</a>)</li>
+<li>Flurry(<a target="_blank" rel="noopener" href="http://www.flurry.com/">www.flurry.com</a>)</li>
+</ul>
+<p>开源的软件也可以拿来收集crash日志，比如<code>Razor</code>,<code>QuincyKit</code>（git链接）等，这些软件收集crash的原理其实大同小异，都是根据系统产生的crash日志进行了一次提取或封装，然后将封装后的crash文件上传到对应的服务端进行解析处理。很多商业软件都采用了<code>Plcrashreporter</code>这个开源工具来上传和解析crash，比如HockeyApp,Flurry和crittercism等。</p>
+<h3 id="crash信息"><a href="#crash信息" class="headerlink" title="crash信息"></a>crash信息</h3><p><img data-src="F5588C90FB5F8D70187B1CDBF120D675.jpg" alt="crash 示例"></p>
+<ol>
+<li>crash标识是应用进程产生crash时的一些标识信息，它描述了该crash的唯一标识（E838FEFB-ECF6-498C-8B35-D40F0F9FEAE4），所发生的硬件设备类型（iphone3,1代表iphone4），以及App进程相关的信息等；</li>
+<li>基本信息描述的是crash发生的时间和系统版本；</li>
+<li>异常类型描述的是crash发生时抛出的异常类型和错误码；</li>
+<li>线程回溯描述了crash发生时所有线程的回溯信息，每个线程在每一帧对应的函数调用信息（这里由于空间限制没有全部列出）；</li>
+<li>二进制映像是指crash发生时已加载的二进制文件。以上就是一份crash日志包含的所有信息，接下来就需要根据这些信息去解析定位导致crash发生的代码逻辑， 这就需要用到符号化解析的过程（洋名叫：symbolication)。</li>
+</ol>
+<h3 id="解决线上闪退"><a href="#解决线上闪退" class="headerlink" title="解决线上闪退"></a>解决线上闪退</h3><p>首先保证，发布前充分测试。发布后依然有闪退现象，查看崩溃日志，及时修复并发布。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/05/iOS - NSInvocation/" rel="bookmark">iOS - NSInvocation</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Runtime/" rel="bookmark">iOS - Runtime</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%AA%E5%88%86%E7%B1%BB/" rel="tag"># 未分类</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="prev" title="iOS - 多线程">
+                  <i class="fa fa-chevron-left"></i> iOS - 多线程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/08/iOS%20-%20Run%20Loop/" rel="next" title="iOS - Run Loop">
+                  iOS - Run Loop <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

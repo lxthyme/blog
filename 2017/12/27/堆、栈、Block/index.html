@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="什么行为会增加APP的内存占用 创建一个oc对象 定义一个变量 调用一个函数或者方法  内存管理范围 任何继承了NSObject的对象 对其它非对象类型无效  简单来说：  只有oc对象需要进行内存管理 非oc对象类型比如基本数据类型不需要进行内存管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆、栈、Block">
+<meta property="og:url" content="http://lxthyme.com/2017/12/27/%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81Block/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="什么行为会增加APP的内存占用 创建一个oc对象 定义一个变量 调用一个函数或者方法  内存管理范围 任何继承了NSObject的对象 对其它非对象类型无效  简单来说：  只有oc对象需要进行内存管理 非oc对象类型比如基本数据类型不需要进行内存管理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-12-27T08:38:05.000Z">
+<meta property="article:modified_time" content="2018-01-08T09:15:43.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="iOS Basic">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://lxthyme.com/2017/12/27/%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81Block/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2017&#x2F;12&#x2F;27&#x2F;%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81Block&#x2F;&quot;,&quot;path&quot;:&quot;2017&#x2F;12&#x2F;27&#x2F;堆、栈、Block&#x2F;&quot;,&quot;title&quot;:&quot;堆、栈、Block&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>堆、栈、Block | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E8%A1%8C%E4%B8%BA%E4%BC%9A%E5%A2%9E%E5%8A%A0APP%E7%9A%84%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">什么行为会增加APP的内存占用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E8%8C%83%E5%9B%B4"><span class="nav-number">2.</span> <span class="nav-text">内存管理范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88OC%E5%AF%B9%E8%B1%A1%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%EF%BC%8C%E8%80%8C%E5%85%B6%E5%AE%83%E9%9D%9E%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B%E6%AF%94%E5%A6%82%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%B0%B1%E4%B8%8D%E9%9C%80%E8%A6%81%E8%BF%9B%E8%A1%8C%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E5%91%A2%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么OC对象需要进行内存管理，而其它非对象类型比如基本数据类型就不需要进行内存管理呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E3%80%81%E6%A0%88"><span class="nav-number">4.</span> <span class="nav-text">堆、栈</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%A0%88-stack"><span class="nav-number">4.0.1.</span> <span class="nav-text">栈(stack)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A0%86%E5%8C%BA-heap"><span class="nav-number">4.0.2.</span> <span class="nav-text">堆区(heap)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#text-segment"><span class="nav-number">4.0.3.</span> <span class="nav-text">text segment</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#stack-segment"><span class="nav-number">4.0.4.</span> <span class="nav-text">stack segment</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#heap-segment"><span class="nav-number">4.0.5.</span> <span class="nav-text">heap segment</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#stack-%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">4.0.6.</span> <span class="nav-text">stack 对象的优缺点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#stack-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">4.0.7.</span> <span class="nav-text">stack 对象的创建</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#heap-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">4.0.8.</span> <span class="nav-text">heap 对象的创建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">堆栈的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8C%89%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F%E5%88%86"><span class="nav-number">5.0.1.</span> <span class="nav-text">按管理方式分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8C%89%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F%E5%88%86"><span class="nav-number">5.0.2.</span> <span class="nav-text">按分配方式分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7%E5%A4%A7%E5%B0%8F"><span class="nav-number">5.0.3.</span> <span class="nav-text">申请大小</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A2%8E%E7%89%87%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="nav-number">6.</span> <span class="nav-text">碎片的问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E9%85%8D%E6%95%88%E7%8E%87%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">分配效率：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iOS%E7%9A%84Block%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="nav-number">8.</span> <span class="nav-text">iOS的Block的内存分配</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Block%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">8.0.1.</span> <span class="nav-text">Block的分类</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#NSGlobalBlock"><span class="nav-number">8.0.2.</span> <span class="nav-text">NSGlobalBlock</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#NSStackBlock"><span class="nav-number">8.0.3.</span> <span class="nav-text">NSStackBlock</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#NSMallocBlock"><span class="nav-number">8.0.4.</span> <span class="nav-text">NSMallocBlock</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block%E4%B8%ADcopy%E3%80%81retain%E3%80%81release%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">Block中copy、retain、release操作总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Block%E5%AF%B9%E4%B8%8D%E5%90%8C%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%AD%98%E5%8F%96"><span class="nav-number">10.</span> <span class="nav-text">Block对不同类型的变量的存取</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F"><span class="nav-number">10.0.1.</span> <span class="nav-text">局部变量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#static%E5%8F%98%E9%87%8F%E3%80%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">10.0.2.</span> <span class="nav-text">static变量、全局变量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Block%E5%8F%98%E9%87%8F"><span class="nav-number">10.0.3.</span> <span class="nav-text">Block变量</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#OC%E5%AF%B9%E8%B1%A1"><span class="nav-number">10.0.4.</span> <span class="nav-text">OC对象</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2017/12/27/%E5%A0%86%E3%80%81%E6%A0%88%E3%80%81Block/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          堆、栈、Block
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-12-27 16:38:05" itemprop="dateCreated datePublished" datetime="2017-12-27T16:38:05+08:00">2017-12-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-08 17:15:43" itemprop="dateModified" datetime="2018-01-08T17:15:43+08:00">2018-01-08</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="什么行为会增加APP的内存占用"><a href="#什么行为会增加APP的内存占用" class="headerlink" title="什么行为会增加APP的内存占用"></a>什么行为会增加APP的内存占用</h4><ol>
+<li>创建一个oc对象</li>
+<li>定义一个变量</li>
+<li>调用一个函数或者方法</li>
+</ol>
+<h4 id="内存管理范围"><a href="#内存管理范围" class="headerlink" title="内存管理范围"></a>内存管理范围</h4><ol>
+<li>任何继承了NSObject的对象</li>
+<li>对其它非对象类型无效</li>
+</ol>
+<p>简单来说：</p>
+<ol>
+<li>只有oc对象需要进行内存管理</li>
+<li>非oc对象类型比如基本数据类型不需要进行内存管理</li>
+</ol>
+<span id="more"></span>
+
+
+<h4 id="为什么OC对象需要进行内存管理，而其它非对象类型比如基本数据类型就不需要进行内存管理呢？"><a href="#为什么OC对象需要进行内存管理，而其它非对象类型比如基本数据类型就不需要进行内存管理呢？" class="headerlink" title="为什么OC对象需要进行内存管理，而其它非对象类型比如基本数据类型就不需要进行内存管理呢？"></a>为什么OC对象需要进行内存管理，而其它非对象类型比如基本数据类型就不需要进行内存管理呢？</h4><blockquote>
+<p>只有OC对象才需要进行内存管理的本质原因?</p>
+</blockquote>
+<ol>
+<li>Objective-C的对象在内存中是以堆的方式分配空间的,并且堆内存是由你释放的，就是release</li>
+<li>OC对象存放于堆里面(堆内存要程序员手动回收)</li>
+<li>非OC对象一般放在栈里面(栈内存会被系统自动回收)</li>
+<li>堆里面的内存是动态分配的，</li>
+</ol>
+<p>所以也就需要程序员手动的去添加内存、回收内存</p>
+<h4 id="堆、栈"><a href="#堆、栈" class="headerlink" title="堆、栈"></a>堆、栈</h4><h6 id="栈-stack"><a href="#栈-stack" class="headerlink" title="栈(stack)"></a>栈(stack)</h6><p>由编译器自动分配释放，存放函数的参数值，局部变量等值。其操作方式类似于数据结构中的栈</p>
+<h6 id="堆区-heap"><a href="#堆区-heap" class="headerlink" title="堆区(heap)"></a>堆区(heap)</h6><p>一般由程序员分配释放，若程序员不释放，则可能会引起内存泄漏。注堆和数据结构中的堆栈不一样，其类似于链表。</p>
+<p>操作系统iOS 中应用程序使用的计算机内存不是统一分配空间，运行代码使用的空间在三个不同的内存区域，分成三个段：<code>text segment</code>，<code>stack segment</code>，<code>heap segment</code>.</p>
+<h6 id="text-segment"><a href="#text-segment" class="headerlink" title="text segment"></a>text segment</h6><p><code>text segment</code>是应用程序运行时应用程序代码存在的内存段。每一个指令，每一个单个函数、过程、方法和执行代码都存在这个内存段中直到应用程序退出。一般情况下，你不会真的不得不知道这个段的任何事情。</p>
+<h6 id="stack-segment"><a href="#stack-segment" class="headerlink" title="stack segment"></a>stack segment</h6><p>当应用开始以后，函数main() 被调用，一些空间分配在”stack” 中。这是为应用分配的另一个段的内存空间，这是为了函数变量存储需要而分配的 内存。每一次在应用中调用一个函数，“stack ”的一部分会被分配在”stack” 中，称之为”frame” 。新函数的本地变量分配在这里。</p>
+<p>“stack ”是后进先出（LIFO ）结构。当函数调用其他的函数时，“stack frame ”会被创建；当其他函数退出后，这个“frame ”会自动被破坏。</p>
+<h6 id="heap-segment"><a href="#heap-segment" class="headerlink" title="heap segment"></a>heap segment</h6><p>“heap” 段也称为”data” 段，提供一个保存中介贯穿函数的执行过程，全局和静态变量保存在“heap”中，直到应用退出。</p>
+<p>为了访问创建在heap 中的数据，你最少要求有一个保存在stack 中的指针，因为你的CPU 通过stack 中的指针访问heap 中的数据。</p>
+<p>可以认为stack 中的一个指针仅仅是一个整型变量，保存了heap 中特定内存地址的数据。实际上，它有一点点复杂，但这是它的基本结构。</p>
+<p>简而言之，操作系统使用stack 段中的指针值访问heap 段中的对象。如果stack 对象的指针没有了，则heap 中的对象就不能访问。这也是内存泄露的原因。</p>
+<p>在iOS 操作系统的stack 段和heap 段中，你都可以创建数据对象。</p>
+<h6 id="stack-对象的优缺点"><a href="#stack-对象的优缺点" class="headerlink" title="stack 对象的优缺点"></a>stack 对象的优缺点</h6><p>stack 对象的优点主要有两点，一是创建速度快，二是管理简单，它有严格的生命周期。<br>stack 对象的缺点是它不灵活。创建时长度是多大就一直是多 大，创建时是哪个函数创建的，它的owner 就一直是它。不像heap 对象那样有多个owner ，其实多个owner 等同于引用计数。只有 heap 对象才是采用“引用计数”方法管理它。</p>
+<h6 id="stack-对象的创建"><a href="#stack-对象的创建" class="headerlink" title="stack 对象的创建"></a>stack 对象的创建</h6><p>只要栈的剩余空间大于stack 对象申请创建的空间，操作系统就会为程序提供这段内存空间，否则将报异常提示栈溢出。</p>
+<h6 id="heap-对象的创建"><a href="#heap-对象的创建" class="headerlink" title="heap 对象的创建"></a>heap 对象的创建</h6><p>操作系统对于内存heap 段是采用链表进行管理的。操作系统有一个记录空闲内存地址的链表，当收到程序的申请时，会遍历链表，寻找第一个空间大于所申请的heap 节点，然后将该节点从空闲节点链表中删除，并将该节点的空间分配给程序。</p>
+<p>例如：</p>
+<p>NSString 的对象就是stack 中的对象，NSMutableString 的对象就是heap 中的对象。前者创建时分配的内存长度固定且不可修改；后者是分配内存长度是可变的，可有多个owner, 适用于计数管理内存管理模式。</p>
+<p>两类对象的创建方法也不同，前者直接创建<code>NSString * str1=@&quot;welcome&quot;; </code>，而后者需要先分配再初始化<code>NSMutableString * mstr1=[[NSMutableString alloc] initWithString:@&quot;welcome&quot;];</code>。</p>
+<h4 id="堆栈的区别"><a href="#堆栈的区别" class="headerlink" title="堆栈的区别"></a>堆栈的区别</h4><p>栈是吃了吐(LIFO先进后出)<br>堆是吃了拉(FIFO先进先出):</p>
+<h6 id="按管理方式分"><a href="#按管理方式分" class="headerlink" title="按管理方式分"></a>按管理方式分</h6><ul>
+<li>对于栈来讲，是由系统编译器自动管理，不需要程序员手动管理</li>
+<li>对于堆来讲，释放工作由程序员手动管理，不及时回收容易产生内存泄露</li>
+</ul>
+<h6 id="按分配方式分"><a href="#按分配方式分" class="headerlink" title="按分配方式分"></a>按分配方式分</h6><ul>
+<li>堆是动态分配和回收内存的，没有静态分配的堆</li>
+<li>栈有两种分配方式：静态分配和动态分配</li>
+<li>静态分配是系统编译器完成的，比如局部变量的分配</li>
+<li>动态分配是有alloc函数进行分配的，但是栈的动态分配和堆是不同的，它的动态分配也由系统编译器进行释放，不需要程序员手动管理</li>
+</ul>
+<h6 id="申请大小"><a href="#申请大小" class="headerlink" title="申请大小"></a>申请大小</h6><p><strong>栈:</strong><br>在Windows下，栈是向低地址扩展的数据结构，是一块连续的内存区域。这句话的意思是栈顶上的地址和栈的最大容量是系统预先规定好的，在Windows下，栈的大小是2M（也有的说1M，总之是编译器确定的一个常数），如果申请的空间超过了栈的剩余空间时候，就overflow。因此，能获得栈的空间较小。</p>
+<p><strong>堆:</strong><br>堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。<br>堆的大笑受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。</p>
+<h4 id="碎片的问题："><a href="#碎片的问题：" class="headerlink" title="碎片的问题："></a>碎片的问题：</h4><p>对于堆来讲，频繁的new/delete势必会造成内存空间的不连续，从而造成大量的碎片，使程序效率降低。<br>对于栈来讲，则不会存在这个问题，因为栈是先进后出的队列，他们是如此的一一对应，以至于永远都不可能有一个内存快从栈中弹出。</p>
+<h4 id="分配效率："><a href="#分配效率：" class="headerlink" title="分配效率："></a>分配效率：</h4><p>栈是机器系统提供的数据结构，计算机会在底层堆栈提供支持，分配专门的寄存器存放栈的地址，压栈出栈都有专门的指令执行，这就决定了栈的效率比较高。堆则是C/C++函数库提供的，他的机制是很复杂的。</p>
+<h4 id="iOS的Block的内存分配"><a href="#iOS的Block的内存分配" class="headerlink" title="iOS的Block的内存分配"></a>iOS的Block的内存分配</h4><blockquote>
+<p>MRC下__block不会增加引用计数，但ARC会，ARC下必须用__weak指明不增加引用计数；ARC下block内存分配机制也与MRC不一样</p>
+</blockquote>
+<h6 id="Block的分类"><a href="#Block的分类" class="headerlink" title="Block的分类"></a>Block的分类</h6><p>Block 其实也是一个对象，并且在大多数情况下，Block 是分配在栈上面的，只有当 Block 被定义为全局变量或Block 块中没有引用任何 automatic 变量时，Block 才分配在全局数据段上(对应下面的堆和text段)。 __block 变量也是分配在栈上面的。</p>
+<p>在 ARC 下，编译器会自动检测为我们处理了 block 的大部分内存管理，但当将 Block 当作方法参数时候，编译器不会自动检测，需要我们手动拷贝该 Block 对象。幸运的是，Cocoa库中的大部分名称中包含usingBlock的接口以及 GCD 接口在其接口内部已经进行了拷贝操作，不需要我们再手动处理了。但除此之外的情况，就需要我们手动干预了。</p>
+<p><strong>根据Block在内存中的位置分为三种类型：</strong></p>
+<ul>
+<li>NSGlobalBlock: 类似函数，位于text段</li>
+<li>NSStackBlock: 位于栈内存，函数返回后Block将无效</li>
+<li>NSMallocBlock: 位于堆内存</li>
+</ul>
+<h6 id="NSGlobalBlock"><a href="#NSGlobalBlock" class="headerlink" title="NSGlobalBlock"></a>NSGlobalBlock</h6><p>NSGlobalBlock类似函数，位于text段，在block内部没有引用任何外部变量。对NSGlobalBlock的retain、copy、release操作都无效。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^globalBlock) () = ^ () &#123;</span><br><span class="line">      <span class="built_in">NSLog</span>(<span class="string">@&quot;global block&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, globalBlock);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;__NSGlobalBlock__: 0x1096e30a0&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="NSStackBlock"><a href="#NSStackBlock" class="headerlink" title="NSStackBlock"></a>NSStackBlock</h6><p>NSStackBlock：位于栈内存，函数返回后Block将无效，在block内部引用外部变量。</p>
+<p><strong>MRC下：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> base = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">long</span> (^stackBlock) (<span class="keyword">int</span>, <span class="keyword">int</span>) = ^ <span class="keyword">long</span> (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">return</span> base + a + b;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>,stackBlock);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;__NSStackBlock__: 0x7fff57c4bde0&gt;</span></span><br></pre></td></tr></table></figure>
+<p>栈block在当函数退出的时候，该空间就会被回收，因此如果再调用该block会导致crash：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> example_addBlockToArray(<span class="built_in">NSMutableArray</span> *array) &#123;</span><br><span class="line">	<span class="keyword">char</span> b = <span class="string">&#x27;B&#x27;</span>;</span><br><span class="line">	[array addObject:^&#123;</span><br><span class="line">    printf(<span class="string">&quot;%cn&quot;</span>, b);</span><br><span class="line">	&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> example() &#123;</span><br><span class="line">	<span class="built_in">NSMutableArray</span> *array = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">	example_addBlockToArray(array);</span><br><span class="line">	<span class="keyword">void</span> (^block)() = [array objectAtIndex:<span class="number">0</span>];</span><br><span class="line">	block();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>example_addBlockToArray</code>函数中添加的block由于为栈block，因此在example函数中调用的话会导致程序crash掉，可以通过将block拷贝到堆上来解决这个问题：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array addObject:[[^&#123;</span><br><span class="line">	printf(<span class="string">&quot;%cn&quot;</span>, b);</span><br><span class="line">&#125; <span class="keyword">copy</span> autorelease]]];</span><br></pre></td></tr></table></figure>
+<p><strong>ARC:</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> base = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">long</span> (^stackBlock) (<span class="keyword">int</span>, <span class="keyword">int</span>) = ^ <span class="keyword">long</span> (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">    <span class="keyword">return</span> base +a + b;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>,stackBlock);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;__NSMallocBlock__: 0x7f8da961d390&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在ARC模式下，打印出来的结果并不是NSStackBlock这个类型，很多人以为在ARC模式下block的类型只有NSGlobalBlock和NSMallocBlock两种，其实这种观点是错误的。在ARC情况下，生成的block也是NSStackBlock，只是当赋值给strong对象时，系统会主动对其进行copy:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;stack block here, i=%d&quot;</span>, i);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;__NSStackBlock__: 0x7fff592eacf8&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (^block)()=^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;stack block here, i=%d&quot;</span>, i);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>,block);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&lt;__NSMallocBlock__: 0x7fae49e02660&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="NSMallocBlock"><a href="#NSMallocBlock" class="headerlink" title="NSMallocBlock"></a>NSMallocBlock</h6><p>NSMallocBlock：位于堆内存。如果NSStackBlock需要在其作用域外部使用的时候，在MRC的模式下需要手动将其copy到堆上，NSMallocBlock支持retain、release，会对其引用计数＋1或－1，copy不会生成新的对象，只是增加了一次引用，类似retain；而在ARC模式下会自动对其进行copy到堆上，不需要自己手动去管理，尽可能使用ARC。</p>
+<h4 id="Block中copy、retain、release操作总结"><a href="#Block中copy、retain、release操作总结" class="headerlink" title="Block中copy、retain、release操作总结"></a>Block中copy、retain、release操作总结</h4><ol>
+<li><p>Block copy与copy等效，Block release与release等效；</p>
+</li>
+<li><p>对Block不管是retain、copy、release都不会改变引用计数retainCount，retainCount始终是1；</p>
+</li>
+<li><p>NSGlobalBlock：retain、copy、release操作都无效；</p>
+</li>
+<li><p>NSStackBlock：retain、release操作无效，必须注意的是，NSStackBlock在函数返回后，Block内存将被回收。即使retain也没用。容易犯的错误是[[mutableAarry addObject:stackBlock]，（补：在ARC中不用担心此问题，因为ARC中会默认将实例化的block拷贝到堆上）在函数出栈后，从mutableAarry中取到的stackBlock已经被回收，变成了野指针。正确的做法是先将stackBlock copy到堆上，然后加入数组：[mutableAarry addObject:[[stackBlock copy] autorelease]]。支持copy，copy之后生成新的NSMallocBlock类型对象。</p>
+</li>
+<li><p>NSMallocBlock支持retain、release，虽然retainCount始终是1，但内存管理器中仍然会增加、减少计数。copy之后不会生成新的对象，只是增加了一次引用，类似retain；尽量不要对Block使用retain操作。</p>
+</li>
+</ol>
+<h4 id="Block对不同类型的变量的存取"><a href="#Block对不同类型的变量的存取" class="headerlink" title="Block对不同类型的变量的存取"></a>Block对不同类型的变量的存取</h4><h6 id="局部变量"><a href="#局部变量" class="headerlink" title="局部变量"></a>局部变量</h6><p>在Block中只读。Block定义时copy变量的值，在Block中作为常量使用，所以即使变量的值在Block外改变，也不影响他在Block中的值。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> base = <span class="number">100</span>;</span><br><span class="line">BlkSum sum = ^ <span class="keyword">long</span> (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">  <span class="comment">// base++; 编译错误，只读</span></span><br><span class="line">  <span class="keyword">return</span> base + a + b;</span><br><span class="line">&#125;;</span><br><span class="line">base = <span class="number">0</span>;</span><br><span class="line">printf(<span class="string">&quot;%ld\n&quot;</span>,sum(<span class="number">1</span>,<span class="number">2</span>)); <span class="comment">// 这里输出是103，而不是3</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="static变量、全局变量"><a href="#static变量、全局变量" class="headerlink" title="static变量、全局变量"></a>static变量、全局变量</h6><p>如果把上个例子的base改成全局的或static。Block就可以对他进行读写了。因为全局变量或静态变量在内存中的地址是固定的，Block在读取该变量值的时候是直接从其所在内存读出，获取到的是最新值，而不是在定义时copy的常量。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> base = <span class="number">100</span>;</span><br><span class="line">BlkSum sum = ^ <span class="keyword">long</span> (<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">  base++;</span><br><span class="line">  <span class="keyword">return</span> base + a + b;</span><br><span class="line">&#125;;</span><br><span class="line">base = <span class="number">0</span>;</span><br><span class="line">printf(<span class="string">&quot;%d\n&quot;</span>, base);</span><br><span class="line">printf(<span class="string">&quot;%ld\n&quot;</span>,sum(<span class="number">1</span>,<span class="number">2</span>)); <span class="comment">// 这里输出是3，而不是103</span></span><br><span class="line">printf(<span class="string">&quot;%d\n&quot;</span>, base);</span><br></pre></td></tr></table></figure>
+<p>输出结果是0 4 1，表明Block外部对base的更新会影响Block中的base的取值，同样Block对base的更新也会影响Block外部的base值。</p>
+<h6 id="Block变量"><a href="#Block变量" class="headerlink" title="Block变量"></a>Block变量</h6><p>被__block修饰的变量称作Block变量。基本类型的Block变量等效于全局变量、或静态变量。</p>
+<p>Block被另一个Block使用时，另一个Block被copy到堆上时，被使用的Block也会被copy。但作为参数的Block是不会发生copy的。</p>
+<h6 id="OC对象"><a href="#OC对象" class="headerlink" title="OC对象"></a>OC对象</h6><p>不同于基本类型，Block会引起对象的引用计数变化。在ARC下需要注意循环引用的问题。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/25/URL Scheme/" rel="bookmark">URL Scheme</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Run Loop/" rel="bookmark">iOS - Run Loop</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/27/iOS - 动画篇/" rel="bookmark">iOS - 动画篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - 推送/" rel="bookmark">iOS - 推送</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 演变『简略』/" rel="bookmark">iOS - 演变『简略』</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ios-basic/" rel="tag"># iOS Basic</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2017/12/26/iOS%20%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" rel="prev" title="iOS 系统架构">
+                  <i class="fa fa-chevron-left"></i> iOS 系统架构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2017/12/27/iOS%20-%20%E5%8A%A8%E7%94%BB%E7%AF%87/" rel="next" title="iOS - 动画篇">
+                  iOS - 动画篇 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="iOS有四种多线程编程的技术，分别是:  pthread NSThread GCD(Grand Central Dispatch) Cocoa NSOperation  多线程含义线程用于指代一个独立执行的代码路径进程用于指代一个可执行程序，他可以包含多个线程 当一个可执行程序中拥有多个独立执行的代码路径的时候，这就叫做多线程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 多线程">
+<meta property="og:url" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="iOS有四种多线程编程的技术，分别是:  pthread NSThread GCD(Grand Central Dispatch) Cocoa NSOperation  多线程含义线程用于指代一个独立执行的代码路径进程用于指代一个可执行程序，他可以包含多个线程 当一个可执行程序中拥有多个独立执行的代码路径的时候，这就叫做多线程。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/ED76A4E8D9CA5AE2335C10AD8D931E0E.jpg">
+<meta property="article:published_time" content="2018-01-08T09:20:06.000Z">
+<meta property="article:modified_time" content="2018-01-22T08:00:23.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="iOS Basic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/ED76A4E8D9CA5AE2335C10AD8D931E0E.jpg">
+
+
+<link rel="canonical" href="http://lxthyme.com/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2018&#x2F;01&#x2F;08&#x2F;iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;01&#x2F;08&#x2F;iOS - 多线程&#x2F;&quot;,&quot;title&quot;:&quot;iOS - 多线程&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>iOS - 多线程 | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%90%AB%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">多线程含义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">优缺点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pthread"><span class="nav-number">2.1.</span> <span class="nav-text">pthread</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSThread"><span class="nav-number">3.</span> <span class="nav-text">NSThread</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSThread%E5%AF%B9%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">NSThread对线程的操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8"><span class="nav-number">3.1.1.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%9D%A1%E7%9C%A0"><span class="nav-number">3.1.2.</span> <span class="nav-text">睡眠</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8F%96%E6%B6%88"><span class="nav-number">3.1.3.</span> <span class="nav-text">取消</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%80%80%E5%87%BA"><span class="nav-number">3.1.4.</span> <span class="nav-text">退出</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%80%9A%E8%AE%AF"><span class="nav-number">3.2.</span> <span class="nav-text">线程通讯</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">3.3.</span> <span class="nav-text">线程优先级</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E9%80%9A%E7%9F%A5"><span class="nav-number">3.4.</span> <span class="nav-text">线程通知</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NSThread%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.5.</span> <span class="nav-text">NSThread实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NSOperation"><span class="nav-number">4.</span> <span class="nav-text">NSOperation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#NSQualityOfService"><span class="nav-number">4.1.</span> <span class="nav-text">NSQualityOfService</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Dependencies"><span class="nav-number">4.2.</span> <span class="nav-text">Dependencies</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CompletionBlock"><span class="nav-number">4.3.</span> <span class="nav-text">CompletionBlock</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GCD"><span class="nav-number">5.</span> <span class="nav-text">GCD</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81"><span class="nav-number">5.0.1.</span> <span class="nav-text">线程死锁</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">5.0.2.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dispatch-sync-%E5%92%8C-dispatch-async-%E5%8C%BA%E5%88%AB"><span class="nav-number">5.0.3.</span> <span class="nav-text">dispatch_sync 和 dispatch_async 区别</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">5.1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Q-GCD%E5%AE%9E%E7%8E%B01%EF%BC%8C2%E5%B9%B6%E8%A1%8C%E5%92%8C3%E4%B8%B2%E8%A1%8C%E5%92%8C45%E4%B8%B2%E8%A1%8C%EF%BC%8C4%EF%BC%8C5%E6%98%AF%E5%B9%B6%E8%A1%8C%E3%80%82%E5%8D%B33%E4%BE%9D%E8%B5%961%EF%BC%8C2%E7%9A%84%E6%89%A7%E8%A1%8C%EF%BC%8C45%E4%BE%9D%E8%B5%963%E7%9A%84%E6%89%A7%E8%A1%8C%E3%80%82"><span class="nav-number">5.1.1.</span> <span class="nav-text">Q: GCD实现1，2并行和3串行和45串行，4，5是并行。即3依赖1，2的执行，45依赖3的执行。</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">线程和进程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2018/01/08/iOS%20-%20%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS - 多线程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-08 17:20:06" itemprop="dateCreated datePublished" datetime="2018-01-08T17:20:06+08:00">2018-01-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-22 16:00:23" itemprop="dateModified" datetime="2018-01-22T16:00:23+08:00">2018-01-22</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>iOS有四种多线程编程的技术，分别是:</p>
+<ol>
+<li><strong>pthread</strong></li>
+<li><strong>NSThread</strong></li>
+<li><strong>GCD</strong>(Grand Central Dispatch)</li>
+<li><strong>Cocoa NSOperation</strong></li>
+</ol>
+<h4 id="多线程含义"><a href="#多线程含义" class="headerlink" title="多线程含义"></a>多线程含义</h4><p>线程用于指代一个独立执行的代码路径<br>进程用于指代一个可执行程序，他可以包含多个线程</p>
+<p>当一个可执行程序中拥有多个独立执行的代码路径的时候，这就叫做多线程。</p>
+<span id="more"></span>
+
+
+<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><ol>
+<li><p>NSThread</p>
+<ul>
+<li>优点：NSThread 比其他两个轻量级。</li>
+<li>缺点：<ul>
+<li>需要自己管理线程的生命周期，线程同步。线程同步对数据的加锁会有一定的系统开销。</li>
+<li>封装性最差，最偏向于底层，主要基于thread使用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Cocoa NSOperation<br> 基于GCD封装的NSObject对象，对于复杂的多线程项目使用比较方便，主要基于队列使用</p>
+<ul>
+<li>优点:不需要关心线程管理， 数据同步的事情，可以把精力放在自己需要执行的操作上。</li>
+</ul>
+<p> Cocoa NSOperation相关的类是NSOperation, NSOperationQueue.</p>
+<p> NSOperation是个抽象类,使用它必须用它的子类，可以实现它或者使用它定义好的两个子类: <code>NSInvocationOperation</code>和<code>NSBlockOperation</code>.创建NSOperation子类的对象，把对象添加到NSOperationQueue队列里执行。</p>
+</li>
+<li><p>GCD(<code>Grand Central Dispatch</code>)(全优点)<br> GCD是Apple开发的一个多核编程的解决方案。在iOS4.0开始之后才能使用。</p>
+<ul>
+<li>优点:<ul>
+<li>基于C的API，直接使用比较方便，主要基于task使用</li>
+</ul>
+</li>
+<li>缺点:</li>
+</ul>
+</li>
+</ol>
+<pre><code>* GCD是一个替代`NSThread`, `NSOperationQueue`, `NSInvocationOperation`等技术的很高效强大的技术。
+</code></pre>
+<h5 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h5><p>pthread是一套通用的多线程API，适用于Linux\Windows\Unix,跨平台，可移植，使用C语言，生命周期需要程序员管理，IOS开发中使用很少。</p>
+<h4 id="NSThread"><a href="#NSThread" class="headerlink" title="NSThread"></a>NSThread</h4><p>对于NSThread来说，每一个对象就代表着一个线程，NSThread提供了2种创建线程的方法:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)detachNewThreadSelector:(SEL)selector toTarget:(<span class="keyword">id</span>)target withObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)argument;</span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithTarget:(<span class="keyword">id</span>)target selector:(SEL)selector object:(<span class="keyword">nullable</span> <span class="keyword">id</span>)argument <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br></pre></td></tr></table></figure>
+
+<p>detach方法直接创建并启动一个线程去Selector，由于没有返回值，如果需要获取新创建的Thread，需要在执行的Selector中调用-[NSThread currentThread]获取</p>
+<p>init方法初始化线程并返回，线程的入口函数由Selector传入。线程创建出来之后需要手动调用-start方法启动</p>
+<h5 id="NSThread对线程的操作方法"><a href="#NSThread对线程的操作方法" class="headerlink" title="NSThread对线程的操作方法"></a>NSThread对线程的操作方法</h5><p>NSThread给线程提供的主要操作方法有<strong>启动</strong>，<strong>睡眠</strong>，<strong>取消</strong>，<strong>退出</strong></p>
+<h6 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h6><p>使用init方法将线程创建出来之后，线程并不会立即运行，只有我们手动调用-start方法才会启动线程</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)start <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br></pre></td></tr></table></figure>
+
+<h6 id="睡眠"><a href="#睡眠" class="headerlink" title="睡眠"></a>睡眠</h6><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)sleepUntilDate:(<span class="built_in">NSDate</span> *)date;</span><br><span class="line">+ (<span class="keyword">void</span>)sleepForTimeInterval:(<span class="built_in">NSTimeInterval</span>)ti;</span><br></pre></td></tr></table></figure>
+
+<p>看到sleepUntilDate:大家可能会想起runloop的runUntilDate:。他们都有阻塞线程的效果，但是阻塞之后的行为又有不一样的地方，使用的时候，我们需要根据具体需求选择合适的API。</p>
+<ul>
+<li><p><code>sleepUntilDate:</code>相当于执行一个sleep的任务。在执行过程中，即使有其他任务传入runloop，runloop也不会立即响应，必须sleep任务完成之后，才会响应其他任务</p>
+</li>
+<li><p><code>runUntilDate:</code>虽然会阻塞线程，阻塞过程中并不妨碍新任务的执行。当有新任务的时候，会先执行接收到的新任务，新任务执行完之后，如果时间到了，再继续执行runUntilDate:之后的代码</p>
+</li>
+</ul>
+<h6 id="取消"><a href="#取消" class="headerlink" title="取消"></a>取消</h6><p>对于线程的取消，NSThread提供了一个取消的方法和一个属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">readonly</span>, <span class="keyword">getter</span>=isCancelled) <span class="built_in">BOOL</span> cancelled <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)cancel <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br></pre></td></tr></table></figure>
+
+<p>不过大家千万不要被它的名字迷惑，调用-cancel方法并不会立刻取消线程，它仅仅是将cancelled属性设置为YES。cancelled也仅仅是一个用于记录状态的属性。线程取消的功能需要我们在main函数中自己实现</p>
+<p>要实现取消的功能，我们需要自己在线程的main函数中定期检查isCancelled状态来判断线程是否需要退出，当isCancelled为YES的时候，我们手动退出。如果我们没有在main函数中检查isCancelled状态，那么调用-cancel将没有任何意义</p>
+<h6 id="退出"><a href="#退出" class="headerlink" title="退出"></a>退出</h6><p>与充满不确定性的-cancel相比，-exit函数可以让线程立即退出。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)exit;</span><br></pre></td></tr></table></figure>
+<p>-exit属于核弹级别终极API，调用之后会立即终止线程，即使任务还没有执行完成也会中断。这就非常有可能导致内存泄露等严重问题，所以一般不推荐使用。</p>
+<p><del>对于有runloop的线程，可以使用CFRunLoopStop()结束runloop配合-cancel结束线程</del></p>
+<p><strong>修正: runloop启动的方法中$run$和$runUntilDate:$都无法使用$CFRunLoopStop()$退出，只有$runMode:beforeDate:$可以响应$CFRunLoopStop()$，所以要想使用$CFRunLoopStop()$退出runloop，必须使用runMode:beforeDate:启动</strong></p>
+<p>当我们想要结束线程的时候，我们可以使用CFRunLoopStop()配合-cancel来结束线程。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)cancelThread &#123;</span><br><span class="line">    [[<span class="built_in">NSThread</span> currentThread] cancel];</span><br><span class="line">    <span class="built_in">CFRunLoopStop</span>(<span class="built_in">CFRunLoopGetCurrent</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不过这个方法必须在self.thread线程下调用。如果当前是主线程。可以perform到self.thread下调用这个方法结束线程</p>
+<h5 id="线程通讯"><a href="#线程通讯" class="headerlink" title="线程通讯"></a>线程通讯</h5><p>线程准备好之后，经常需要从主线程把耗时的任务丢给辅助线程，当任务完成之后辅助线程再把结果传回主线程传，这些线程通讯一般用的都是perform方法</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 将selector丢给主线程执行，可以指定runloop mode</span></span><br><span class="line">- (<span class="keyword">void</span>)performSelectorOnMainThread:(SEL)aSelector withObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait modes:(<span class="keyword">nullable</span> <span class="built_in">NSArray</span> *)array;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 将selector丢给主线程执行，runloop mode默认为common mode</span></span><br><span class="line">- (<span class="keyword">void</span>)performSelectorOnMainThread:(SEL)aSelector withObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 将selector丢个指定线程执行，可以指定runloop mode</span></span><br><span class="line">- (<span class="keyword">void</span>)performSelector:(SEL)aSelector onThread:(<span class="built_in">NSThread</span> *)thr withObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait modes:(<span class="keyword">nullable</span> <span class="built_in">NSArray</span> *)array <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 4. 将selector丢个指定线程执行，runloop mode默认为default mode</span></span><br><span class="line">- (<span class="keyword">void</span>)performSelector:(SEL)aSelector onThread:(<span class="built_in">NSThread</span> *)thr withObject:(<span class="keyword">nullable</span> <span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_5, <span class="number">2</span>_0);</span><br></pre></td></tr></table></figure>
+<p>我们一般用3, 4方法将任务丢给辅助线程，任务执行完成之后再使用1, 2方法将结果传回主线程。</p>
+<p><strong>注意: perform方法只对拥有runloop的线程有效，如果创建的线程没有添加runloop，perform的selector将无法执行。</strong></p>
+<h5 id="线程优先级"><a href="#线程优先级" class="headerlink" title="线程优先级"></a>线程优先级</h5><p>NSThread有4个优先级的API:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">double</span>)threadPriority;</span><br><span class="line">+ (<span class="built_in">BOOL</span>)setThreadPriority:(<span class="keyword">double</span>)p;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> <span class="keyword">double</span> threadPriority <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_6, <span class="number">4</span>_0); <span class="comment">// To be deprecated; use qualityOfService below</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> <span class="built_in">NSQualityOfService</span> qualityOfService <span class="built_in">NS_AVAILABLE</span>(<span class="number">10</span>_10, <span class="number">8</span>_0); <span class="comment">// read-only after the thread is started</span></span><br></pre></td></tr></table></figure>
+<p>前2个是类方法，用于设置和获取当前线程的优先级</p>
+<p>threadPriority属性可以通过对象设置和获取优先级</p>
+<p>由于线程优先级是一个比较抽象的东西，没人能知道0.5和0.6到底有多大区别，所以iOS8之后新增了qualityOfService枚举属性，大家可以通过枚举值设置优先级</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">NSQualityOfService</span>) &#123;</span><br><span class="line">    <span class="built_in">NSQualityOfServiceUserInteractive</span> = <span class="number">0x21</span>,</span><br><span class="line">    <span class="built_in">NSQualityOfServiceUserInitiated</span> = <span class="number">0x19</span>,</span><br><span class="line">    <span class="built_in">NSQualityOfServiceDefault</span> = <span class="number">-1</span></span><br><span class="line">    <span class="built_in">NSQualityOfServiceUtility</span> = <span class="number">0x11</span>,</span><br><span class="line">    <span class="built_in">NSQualityOfServiceBackground</span> = <span class="number">0x09</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>NSQualityOfService主要有5个枚举值，优先级别从高到低排布：</p>
+<ul>
+<li><code>NSQualityOfServiceUserInteractive</code>: 最高优先级，主要用于提供交互UI的操作，比如处理点击事件，绘制图像到屏幕上</li>
+<li><code>NSQualityOfServiceUserInitiated</code>: 次高优先级，主要用于执行需要立即返回的任务</li>
+<li><code>NSQualityOfServiceDefault</code>: 默认优先级，当没有设置优先级的时候，线程默认优先级</li>
+<li><code>NSQualityOfServiceUtility</code>: 普通优先级，主要用于不需要立即返回的任务</li>
+<li><code>NSQualityOfServiceBackground</code>: 后台优先级，用于完全不紧急的任务<br>一般主线程和没有设置优先级的线程都是默认优先级。</li>
+</ul>
+<h5 id="线程通知"><a href="#线程通知" class="headerlink" title="线程通知"></a>线程通知</h5><p>NSThread有三个线程相关的通知:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">NSWillBecomeMultiThreadedNotification</span>;</span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">NSDidBecomeSingleThreadedNotification</span>;</span><br><span class="line"><span class="built_in">NSString</span> * <span class="keyword">const</span> <span class="built_in">NSThreadWillExitNotification</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>NSWillBecomeMultiThreadedNotification</code>: 由当前线程派生出第一个其他线程时发送，一般一个线程只发送一次</li>
+<li><code>NSDidBecomeSingleThreadedNotification</code>: 这个通知目前没有实际意义，可以忽略</li>
+<li><code>NSThreadWillExitNotification</code>: 线程退出之前发送这个通知</li>
+</ul>
+<h5 id="NSThread实例"><a href="#NSThread实例" class="headerlink" title="NSThread实例"></a>NSThread实例</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 创建线程, 并指定入口main函数为-threadMain</span></span><br><span class="line"><span class="keyword">self</span>.thread = [[<span class="built_in">NSThread</span> alloc] initWithTarget:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(threadMain) object:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 设置线程的优先级，qualityOfService属性必须在线程启动之前设置，启动之后将无法再设置</span></span><br><span class="line"><span class="keyword">self</span>.thread.qualityOfService = <span class="built_in">NSQualityOfServiceDefault</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 调用start方法启动线程</span></span><br><span class="line">[<span class="keyword">self</span>.thread start];</span><br></pre></td></tr></table></figure>
+
+<p>由于线程的创建和销毁非常消耗性能，大多情况下，我们需要复用一个长期运行的线程来执行任务。</p>
+<p>在线程启动之后会首先执行<code>threadMain</code>，正常情况下<code>threadMain</code>方法执行结束之后，线程就会退出。为了线程可以长期复用接收消息，我们需要在<code>threadMain</code>中给thread添加runloop</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)threadMain &#123;</span><br><span class="line">    <span class="comment">// 1. 给线程设置名字</span></span><br><span class="line">    [[<span class="built_in">NSThread</span> currentThread] setName:<span class="string">@&quot;myThread&quot;</span>];</span><br><span class="line">    <span class="comment">// 2. 给线程添加runloop</span></span><br><span class="line">    <span class="built_in">NSRunLoop</span> *runLoop = [<span class="built_in">NSRunLoop</span> currentRunLoop];</span><br><span class="line">    <span class="comment">// 3. 给runloop添加数据源</span></span><br><span class="line">    [runLoop addPort:[<span class="built_in">NSMachPort</span> port] forMode:<span class="built_in">NSDefaultRunLoopMode</span>];</span><br><span class="line">    <span class="comment">// 4. 检查isCancelled</span></span><br><span class="line">    <span class="keyword">while</span> (![[<span class="built_in">NSThread</span> currentThread] isCancelled]) &#123;</span><br><span class="line">        <span class="comment">// 5. 启动runloop</span></span><br><span class="line">        [runLoop runMode:<span class="built_in">NSDefaultRunLoopMode</span> beforeDate:[<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:<span class="number">10</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h4><h5 id="NSQualityOfService"><a href="#NSQualityOfService" class="headerlink" title="NSQualityOfService"></a>NSQualityOfService</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(<span class="built_in">NSInteger</span>, <span class="built_in">NSQualityOfService</span>) &#123;</span><br><span class="line">    <span class="comment">// 用于直接参与提供一个交互式UI，如处理事件或对屏幕的绘制。</span></span><br><span class="line">    <span class="built_in">NSQualityOfServiceUserInteractive</span> = <span class="number">0x21</span>,</span><br><span class="line">    <span class="comment">// 用于表示执行工作已经被用户显示提出并且要求结果能够立即展示以便进行进一步的用户交互。比如：用户在信息列表点击之后立即加载一个email。</span></span><br><span class="line">    <span class="built_in">NSQualityOfServiceUserInitated</span> = <span class="number">0x19</span>,</span><br><span class="line">    <span class="comment">// 用于表述执行一项工作后，用户并不需要立即得到结果。这一工作通常用户已经请求过或者在初始化的时候已经自动执行，不会阻碍用户用户的进一步交互，通常在用户可见的时间尺度和可能由一个非模态的进度指示器展示给用户。</span></span><br><span class="line">    <span class="built_in">NSQualityOfServiceUtility</span> = <span class="number">0x11</span>,</span><br><span class="line">    <span class="built_in">NSQualityOfServiceBackground</span> = <span class="number">0x09</span>,</span><br><span class="line">    <span class="built_in">NSQualityOfServiceDefault</span> = <span class="number">-1</span></span><br><span class="line">&#125; <span class="built_in">NS_ENUM_AVAILABLE</span>(<span class="number">10</span>_10, <span class="number">8</span>_0);</span><br></pre></td></tr></table></figure>
+
+<h5 id="Dependencies"><a href="#Dependencies" class="headerlink" title="Dependencies"></a>Dependencies</h5><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSOperation</span> *networkOperation;</span><br><span class="line"><span class="built_in">NSOperation</span> *resizingOperation;</span><br><span class="line"></span><br><span class="line">[resizingOperation addDependency:networkOperation];</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSOperationQueue</span> *operationQueue = [<span class="built_in">NSOperationQueue</span> mainQueue];</span><br><span class="line">[operationQueue addOperation:networkOperation];</span><br><span class="line">[operationQueue addOperation:resizingOperation];</span><br></pre></td></tr></table></figure>
+
+<h5 id="CompletionBlock"><a href="#CompletionBlock" class="headerlink" title="CompletionBlock"></a>CompletionBlock</h5><h4 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h4><h6 id="线程死锁"><a href="#线程死锁" class="headerlink" title="线程死锁"></a>线程死锁</h6><p>GCD 确实好用 ，很强大，相比NSOpretion 无法提供 取消任务的功能。<br>如此强大的工具用不好可能会出现线程死锁。 如下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;=================4&quot;</span>);</span><br><span class="line">    <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;=================5&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;=================6&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h6><p>GCD Queue 分为三种:</p>
+<ol>
+<li>The main queue ：主队列，主线程就是在个队列中。</li>
+<li>Global queues ： 全局并发队列。</li>
+<li>用户队列:是用函数 dispatch_queue_create创建的自定义队列</li>
+</ol>
+<h6 id="dispatch-sync-和-dispatch-async-区别"><a href="#dispatch-sync-和-dispatch-async-区别" class="headerlink" title="dispatch_sync 和 dispatch_async 区别"></a><code>dispatch_sync</code> 和 <code>dispatch_async</code> 区别</h6><p><code>dispatch_async(queue,block)</code>: 异步队列，<code>dispatch_async</code>函数会立即返回, block会在后台异步执行。</p>
+<p><code>dispatch_sync(queue,block)</code>: 同步队列，<code>dispatch_sync</code>函数不会立即返回，及阻塞当前线程,等待 block同步执行完成。</p>
+<p>分析上面代码：</p>
+<p><code>viewDidLoad</code>在主线程中， 及在<code>dispatch_get_main_queue()</code>中，执行到sync 时 向<code>dispatch_get_main_queue()</code>插入 同步 threed。sync 会等到 后面block 执行完成才返回， sync 又再 <code>dispatch_get_main_queue()</code> 队列中，它是串行队列，sync 是后加入的，前一个是主线程，所以 sync 想执行 block 必须等待主线程执行完成，主线程等待 sync 返回，去执行后续内容。照成死锁，sync 等待mainThread 执行完成， mianThread 等待sync 函数返回。下面例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;=================1&quot;</span>);</span><br><span class="line">        <span class="built_in">dispatch_sync</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;=================2&quot;</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;=================3&quot;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序会完成执行，为什么不会出现死锁。</p>
+<p>首先： async 在主线程中 创建了一个异步线程 加入 全局并发队列，async 不会等待block 执行完成，立即返回，</p>
+<ol>
+<li><p>async 立即返回， viewDidLoad 执行完毕，及主线程执行完毕。</p>
+</li>
+<li><p>同时，全局并发队列立即执行异步 block ， 打印 1， 当执行到 sync 它会等待 block 执行完成才返回， 及等待dispatch_get_main_queue() 队列中的 mianThread 执行完成， 然后才开始调用block 。因为1 和 2 几乎同时执行，因为2 在全局并发队列上， 2 中执行到sync 时 1 可能已经执行完成或 等了一会，mainThread 很快退出， 2 等已执行后继续内容。如果阻塞了主线程，2 中的sync 就无法执行啦，mainThread 永远不会退出， sync 就永远等待着。</p>
+</li>
+</ol>
+<h5 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h5><ol>
+<li><p>串行队列：队列中的任务只会顺序执行</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t q = dispatch_queue_create(“....”, dispatch_queue_serial);</span><br></pre></td></tr></table></figure></li>
+<li><p>并行队列： 队列中的任务通常会并发执行。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t q = dispatch_queue_create(&quot;......&quot;, dispatch_queue_concurrent);</span><br></pre></td></tr></table></figure></li>
+<li><p>全局队列：是系统开发的，直接拿过来用就可以；与并行队列类似，但调试时，无法确认操作所在队列　。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t q = dispatch_get_global_queue(dispatch_queue_priority_default, 0);</span><br></pre></td></tr></table></figure></li>
+<li><p>主队列：每一个应用开发程序对应唯一一个主队列，直接get即可；在多线程开发中，使用主队列更新UI。</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t q = dispatch_get_main_queue();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p><strong>注意:</strong></p>
+<ul>
+<li><p>主队列是GCD自带的串行队列，会在主线程中执行。异步全局并发队列 开启新线程，并发执行。</p>
+</li>
+<li><p>并行队列里开启同步任务是有执行顺序的，只有异步才没有顺序。</p>
+</li>
+<li><p>串行队列开启异步任务，是有顺序的。</p>
+</li>
+<li><p>串行队列开启异步任务后嵌套同步任务造成死锁。</p>
+</li>
+</ul>
+<h6 id="Q-GCD实现1，2并行和3串行和45串行，4，5是并行。即3依赖1，2的执行，45依赖3的执行。"><a href="#Q-GCD实现1，2并行和3串行和45串行，4，5是并行。即3依赖1，2的执行，45依赖3的执行。" class="headerlink" title="Q: GCD实现1，2并行和3串行和45串行，4，5是并行。即3依赖1，2的执行，45依赖3的执行。"></a>Q: GCD实现1，2并行和3串行和45串行，4，5是并行。即3依赖1，2的执行，45依赖3的执行。</h6><p><img data-src="ED76A4E8D9CA5AE2335C10AD8D931E0E.jpg" alt="IMAGE"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>) methodone&#123;</span><br><span class="line">dispatch_group_t group = dispatch_group_create();</span><br><span class="line"></span><br><span class="line">dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%d&quot;</span>,<span class="number">1</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%d&quot;</span>,<span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;3&quot;</span>);</span><br><span class="line"></span><br><span class="line">    dispatch_group_t group1 = dispatch_group_create();</span><br><span class="line"></span><br><span class="line">    dispatch_group_async(group1, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;%d&quot;</span>,<span class="number">4</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    dispatch_group_async(group1, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;%d&quot;</span>,<span class="number">5</span>);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h5><p>进程，是并发执行的程序在执行过程中分配和管理资源的基本单位，是一个动态概念，竟争计算机系统资源的基本单位。每一个进程都有一个自己的地址空间，即进程空间或（虚空间）。进程空间的大小 只与处理机的位数有关，一个 16 位长处理机的进程空间大小为 216 ，而 32 位处理机的进程空间大小为 232 。进程至少有 5 种基本状态，它们是：<strong>初始态</strong>，<strong>执行态</strong>，<strong>等待状态</strong>，<strong>就绪状态</strong>，<strong>终止状态</strong>。</p>
+<p>线程，在网络或多用户环境下，一个服务器通常需要接收大量且不确定数量用户的并发请求，为每一个请求都创建一个进程显然是行不通的，——无论是从系统资源开销方面或是响应用户请求的效率方面来看。因此，操作系统中线程的概念便被引进了。线程，是进程的一部分，一个没有线程的进程可以被看作是单线程的。线程有时又被称为<strong>轻权进程</strong>或<strong>轻量级进程</strong>，也是 CPU 调度的一个基本单位。</p>
+<p>进程的执行过程是线状的，尽管中间会发生中断或暂停，但该进程所拥有的资源只为该线状执行过程服务。一旦发生进程上下文切换，这些资源都是要被保护起来的。这是进程宏观上的执行过程。而进程又可有单线程进程与多线程进程两种。我们知道，进程有 一个进程控制块 PCB ，相关程序段 和 该程序段对其进行操作的数据结构集 这三部分，单线程进程的执行过程在宏观上是线性的，微观上也只有单一的执行过程；而多线程进程在宏观上的执行过程同样为线性的，但微观上却可以有多个执行操作（线程），如不同代码片段以及相关的数据结构集。线程的改变只代表了 CPU 执行过程的改变，而没有发生进程所拥有的资源变化。除了 CPU 之外，计算机内的软硬件资源的分配与线程无关，线程只能共享它所属进程的资源。与进程控制表和 PCB 相似，每个线程也有自己的线程控制表 TCB ，而这个 TCB 中所保存的线程状态信息则要比 PCB 表少得多，这些信息主要是相关指针用堆栈（系统栈和用户栈），寄存器中的状态数据。进程拥有一个完整的虚拟地址空间，不依赖于线程而独立存在；反之，线程是进程的一部分，没有自己的地址空间，与进程内的其他线程一起共享分配给该进程的所有资源。</p>
+<p>线程可以有效地提高系统的执行效率，但并不是在所有计算机系统中都是适用的，如某些很少做进程调度和切换的实时系统。使用线程的好处是有多个任务需要处理机处理时，减少处理机的切换时间；而且，线程的创建和结束所需要的系统开销也比进程的创建和结束要小得多。最适用使用线程的系统是多处理机系统和网络系统或分布式系统。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/25/URL Scheme/" rel="bookmark">URL Scheme</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Run Loop/" rel="bookmark">iOS - Run Loop</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/27/iOS - 动画篇/" rel="bookmark">iOS - 动画篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - 推送/" rel="bookmark">iOS - 推送</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 演变『简略』/" rel="bookmark">iOS - 演变『简略』</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ios-basic/" rel="tag"># iOS Basic</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/08/iOS%20-%20Runtime/" rel="prev" title="iOS - Runtime">
+                  <i class="fa fa-chevron-left"></i> iOS - Runtime
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/08/iOS%20-%20%E8%BF%BD%E8%B8%AA%20App%20%E5%B4%A9%E6%BA%83,%20%E8%A7%A3%E5%86%B3%E7%BA%BF%E4%B8%8A%E9%97%AA%E9%80%80/" rel="next" title="iOS - 追踪 App 崩溃, 解决线上闪退">
+                  iOS - 追踪 App 崩溃, 解决线上闪退 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

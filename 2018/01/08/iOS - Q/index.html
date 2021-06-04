@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{&quot;hostname&quot;:&quot;lxthyme.com&quot;,&quot;root&quot;:&quot;&#x2F;&quot;,&quot;images&quot;:&quot;&#x2F;images&quot;,&quot;scheme&quot;:&quot;Muse&quot;,&quot;version&quot;:&quot;8.5.0&quot;,&quot;exturl&quot;:false,&quot;sidebar&quot;:{&quot;position&quot;:&quot;left&quot;,&quot;display&quot;:&quot;post&quot;,&quot;padding&quot;:18,&quot;offset&quot;:12},&quot;copycode&quot;:true,&quot;bookmark&quot;:{&quot;enable&quot;:true,&quot;color&quot;:&quot;#222&quot;,&quot;save&quot;:&quot;auto&quot;},&quot;fancybox&quot;:true,&quot;mediumzoom&quot;:false,&quot;lazyload&quot;:true,&quot;pangu&quot;:false,&quot;comments&quot;:{&quot;style&quot;:&quot;tabs&quot;,&quot;active&quot;:null,&quot;storage&quot;:true,&quot;lazyload&quot;:false,&quot;nav&quot;:null},&quot;motion&quot;:{&quot;enable&quot;:true,&quot;async&quot;:false,&quot;transition&quot;:{&quot;post_block&quot;:&quot;fadeIn&quot;,&quot;post_header&quot;:&quot;fadeInDown&quot;,&quot;post_body&quot;:&quot;fadeInDown&quot;,&quot;coll_header&quot;:&quot;fadeInLeft&quot;,&quot;sidebar&quot;:&quot;fadeInUp&quot;}},&quot;prism&quot;:false,&quot;i18n&quot;:{&quot;placeholder&quot;:&quot;搜索...&quot;,&quot;empty&quot;:&quot;没有找到任何搜索结果：${query}&quot;,&quot;hits_time&quot;:&quot;找到 ${hits} 个搜索结果（用时 ${time} 毫秒）&quot;,&quot;hits&quot;:&quot;找到 ${hits} 个搜索结果&quot;}}</script><script src="/js/config.js"></script>
+<meta name="description" content="那些著名或非著名的iOS面试题（上）  那些著名或非著名的iOS面试题（中）  那些著名或非著名的iOS面试题（下）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - Q">
+<meta property="og:url" content="http://lxthyme.com/2018/01/08/iOS%20-%20Q/index.html">
+<meta property="og:site_name" content="lxthyme">
+<meta property="og:description" content="那些著名或非著名的iOS面试题（上）  那些著名或非著名的iOS面试题（中）  那些著名或非著名的iOS面试题（下）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20Q/C22A44A31C3BB834BCE94FD8FD17B3CE.jpg">
+<meta property="article:published_time" content="2018-01-08T02:42:47.000Z">
+<meta property="article:modified_time" content="2018-01-12T03:01:24.000Z">
+<meta property="article:author" content="lxthyme">
+<meta property="article:tag" content="iOS Basic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://lxthyme.com/2018/01/08/iOS%20-%20Q/C22A44A31C3BB834BCE94FD8FD17B3CE.jpg">
+
+
+<link rel="canonical" href="http://lxthyme.com/2018/01/08/iOS%20-%20Q/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{&quot;sidebar&quot;:&quot;&quot;,&quot;isHome&quot;:false,&quot;isPost&quot;:true,&quot;lang&quot;:&quot;zh-CN&quot;,&quot;comments&quot;:true,&quot;permalink&quot;:&quot;http:&#x2F;&#x2F;lxthyme.com&#x2F;2018&#x2F;01&#x2F;08&#x2F;iOS%20-%20Q&#x2F;&quot;,&quot;path&quot;:&quot;2018&#x2F;01&#x2F;08&#x2F;iOS - Q&#x2F;&quot;,&quot;title&quot;:&quot;iOS - Q&quot;}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">&quot;&quot;</script>
+<title>iOS - Q | lxthyme</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">lxthyme</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B7%B1%E6%B5%85%E5%A4%8D%E5%88%B6%E5%92%8C%E5%B1%9E%E6%80%A7%E4%B8%BAcopy%EF%BC%8Cstrong%E5%80%BC%E7%9A%84%E5%8F%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">深浅复制和属性为copy，strong值的变化问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NSTimer%E5%88%9B%E5%BB%BA%E5%90%8E%EF%BC%8C%E4%BC%9A%E5%9C%A8%E5%93%AA%E4%B8%AA%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">NSTimer创建后，会在哪个线程运行。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#KVO%EF%BC%8CNSNotification%EF%BC%8Cdelegate%E5%8F%8Ablock%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">KVO，NSNotification，delegate及block区别</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#KVO"><span class="nav-number">3.1.</span> <span class="nav-text">KVO</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#NSNotification"><span class="nav-number">3.2.</span> <span class="nav-text">NSNotification</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#delegate"><span class="nav-number">3.3.</span> <span class="nav-text">delegate</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#block"><span class="nav-number">3.4.</span> <span class="nav-text">block</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.5.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%A9%E8%AE%A1%E6%97%B6%E5%99%A8%E8%B0%83%E7%94%A8%E4%B8%80%E4%B8%AA%E7%B1%BB%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">如何让计时器调用一个类方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E4%B8%80%E4%B8%AA%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E9%9C%80%E4%B8%8D%E9%9C%80%E8%A6%81release%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">调用一个类的静态方法需不需要release？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#static%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">static作用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NSObject%E7%9A%84load%E5%92%8Cinitialize%E6%96%B9%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">NSObject的load和initialize方法</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%85%B1%E5%90%8C%E7%89%B9%E7%82%B9"><span class="nav-number">7.1.</span> <span class="nav-text">共同特点</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%8C%BA%E5%88%AB"><span class="nav-number">7.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%83%BD%E5%90%A6%E5%90%91%E7%BC%96%E8%AF%91%E5%90%8E%E5%BE%97%E5%88%B0%E7%9A%84%E7%B1%BB%E4%B8%AD%E5%A2%9E%E5%8A%A0%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%EF%BC%9F%E8%83%BD%E5%90%A6%E5%90%91%E8%BF%90%E8%A1%8C%E6%97%B6%E5%88%9B%E5%BB%BA%E7%9A%84%E7%B1%BB%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%AE%9E%E4%BE%8B%E5%8F%98%E9%87%8F%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E4%BB%B6%E5%93%8D%E5%BA%94%E9%93%BE%EF%BC%8C%E7%82%B9%E5%87%BB%E5%B1%8F%E5%B9%95%E6%97%B6%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%92%E5%8A%A8%E7%9A%84%EF%BC%8C%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%BC%A0%E9%80%92%E3%80%82"><span class="nav-number">9.</span> <span class="nav-text">什么是事件响应链，点击屏幕时是如何互动的，事件的传递。</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE-Responder-Chain"><span class="nav-number">9.1.</span> <span class="nav-text">响应者链(Responder Chain)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E8%80%85%E9%93%BE%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">9.2.</span> <span class="nav-text">响应者链的特点:</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%82%B9%E5%87%BB%E5%B1%8F%E5%B9%95%E6%97%B6%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%92%E5%8A%A8%E7%9A%84"><span class="nav-number">9.3.</span> <span class="nav-text">点击屏幕时是如何互动的</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8F%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-number">10.</span> <span class="nav-text">量数据表的优化方案</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restful%E6%9E%B6%E6%9E%84"><span class="nav-number"></span> <span class="nav-text">Restful架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SDWebImage"><span class="nav-number">1.</span> <span class="nav-text">SDWebImage</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E6%9E%90-SDWebImage-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">分析 SDWebImage 的原理</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImage-%E5%8A%A0%E8%BD%BD%E5%9B%BE%E7%89%87%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">SDWebImage 加载图片的流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDWebImage%E5%BA%93%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.3.</span> <span class="nav-text">SDWebImage库的作用</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#SDImageCache%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86%E7%9A%84"><span class="nav-number">1.4.</span> <span class="nav-text">SDImageCache是怎么做数据管理的?</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%BA%E5%95%A5%E5%BF%85%E9%A1%BB%E5%81%9ADecoder"><span class="nav-number">1.5.</span> <span class="nav-text">为啥必须做Decoder?</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lxthyme</p>
+  <div class="site-description" itemprop="description">lxthyme's blog</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lxthyme" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/lxthyme" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://instagram.com/lxthyme" title="Instagram → https:&#x2F;&#x2F;instagram.com&#x2F;lxthyme" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/lxthyme" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://lxthyme.com/2018/01/08/iOS%20-%20Q/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lxthyme">
+      <meta itemprop="description" content="lxthyme's blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lxthyme">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS - Q
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-08 10:42:47" itemprop="dateCreated datePublished" datetime="2018-01-08T10:42:47+08:00">2018-01-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2018-01-12 11:01:24" itemprop="dateModified" datetime="2018-01-12T11:01:24+08:00">2018-01-12</time>
+      </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <ul>
+<li><p><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/ios-interview-1.html">那些著名或非著名的iOS面试题（上）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/ios-interview-2.html">那些著名或非著名的iOS面试题（中）</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.codeceo.com/article/ios-interview-3.html">那些著名或非著名的iOS面试题（下）</a></p>
+</li>
+</ul>
+<span id="more"></span>
+
+
+<h5 id="深浅复制和属性为copy，strong值的变化问题"><a href="#深浅复制和属性为copy，strong值的变化问题" class="headerlink" title="深浅复制和属性为copy，strong值的变化问题"></a>深浅复制和属性为copy，strong值的变化问题</h5><p>浅复制只复制指向对象的指针，而不复制引用对象本身。对于浅复制来说，A和A_copy指向的是同一个内存资源，复制的只不个是一个指针，对象本身资源还是只有一份，那如果我们对A_copy执行了修改操作，那么发现A引用的对象同样被修改了。深复制就好理解了，内存中存在了两份独立对象本身。</p>
+<p>在Objective-C中并不是所有的对象都支持Copy，MutableCopy，遵守NSCopying协议的类才可以发送Copy消息，遵守NSMutableCopying协议的类才可以发送MutableCopy消息。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[immutableObject <span class="keyword">copy</span>] <span class="comment">// 浅拷贝</span></span><br><span class="line">[immutableObject mutableCopy] <span class="comment">//深拷贝</span></span><br><span class="line">[mutableObject <span class="keyword">copy</span>] <span class="comment">//深拷贝</span></span><br><span class="line">[mutableObject mutableCopy] <span class="comment">//深拷贝</span></span><br></pre></td></tr></table></figure>
+
+<p>属性设为copy,指定此属性的值不可更改，防止可变字符串更改自身的值的时候不会影响到对象属性（如NSString,NSArray,NSDictionary）的值。strong此属性的指会随着变化而变化。<strong>copy是内容拷贝，strong是指针拷贝。</strong></p>
+<h5 id="NSTimer创建后，会在哪个线程运行。"><a href="#NSTimer创建后，会在哪个线程运行。" class="headerlink" title="NSTimer创建后，会在哪个线程运行。"></a>NSTimer创建后，会在哪个线程运行。</h5><ol>
+<li><p>用<code>scheduledTimerWithTimeInterval</code>创建的，在哪个线程创建就会被加入哪个线程的RunLoop中就运行在哪个线程。</p>
+</li>
+<li><p>自己创建的Timer，加入到哪个线程的<code>RunLoop</code>中就运行在哪个线程。</p>
+</li>
+</ol>
+<h5 id="KVO，NSNotification，delegate及block区别"><a href="#KVO，NSNotification，delegate及block区别" class="headerlink" title="KVO，NSNotification，delegate及block区别"></a>KVO，NSNotification，delegate及block区别</h5><h6 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h6><p>KVO就是cocoa框架实现的观察者模式，一般同KVC搭配使用，通过KVO可以监测一个值的变化，比如View的高度变化。是一对多的关系，一个值的变化会通知所有的观察者。</p>
+<h6 id="NSNotification"><a href="#NSNotification" class="headerlink" title="NSNotification"></a>NSNotification</h6><p>NSNotification是通知，也是一对多的使用场景。在某些情况下，KVO和NSNotification是一样的，都是状态变化之后告知对方。NSNotification的特点，就是需要被观察者先主动发出通知，然后观察者注册监听后再来进行响应，比KVO多了发送通知的一步，但是其优点是监听不局限于属性的变化，还可以对多种多样的状态变化进行监听，监听范围广，使用也更灵活。</p>
+<h6 id="delegate"><a href="#delegate" class="headerlink" title="delegate"></a>delegate</h6><p>delegate 是代理，就是我不想做的事情交给别人做。比如狗需要吃饭，就通过delegate通知主人，主人就会给他做饭、盛饭、倒水，这些操作，这些狗都不需要关心，只需要调用delegate（代理人）就可以了，由其他类完成所需要的操作。所以delegate是一对一关系。</p>
+<h6 id="block"><a href="#block" class="headerlink" title="block"></a>block</h6><p>block是delegate的另一种形式，是函数式编程的一种形式。使用场景跟delegate一样，相比delegate更灵活，而且代理的实现更直观。</p>
+<h6 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h6><ol>
+<li>KVO一般的使用场景是数据，需求是数据变化，比如股票价格变化，我们一般使用KVO（观察者模式）。</li>
+<li>delegate一般的使用场景是行为，需求是需要别人帮我做一件事情，比如买卖股票，我们一般使用delegate。</li>
+<li>Notification一般是进行全局通知，比如利好消息一出，通知大家去买入。</li>
+<li>delegate是强关联，就是委托和代理双方互相知道，你委托别人买股票你就需要知道经纪人，经纪人也不要知道自己的顾客。</li>
+<li>Notification是弱关联，利好消息发出，你不需要知道是谁发的也可以做出相应的反应，同理发消息的人也不需要知道接收的人也可以正常发出消息。</li>
+</ol>
+<h5 id="如何让计时器调用一个类方法"><a href="#如何让计时器调用一个类方法" class="headerlink" title="如何让计时器调用一个类方法"></a>如何让计时器调用一个类方法</h5><p>计时器只能调用实例方法，但是可以在这个实例方法里面调用静态方法。</p>
+<p>使用计时器需要注意，计时器一定要加入RunLoop中，并且选好model才能运行。<code>scheduledTimerWithTimeInterval</code>方法创建一个计时器并加入到RunLoop中所以可以直接使用。</p>
+<p>如果计时器的repeats选择YES说明这个计时器会重复执行，一定要在合适的时机调用计时器的invalid。不能在dealloc中调用，因为一旦设置为repeats 为yes，计时器会强持有self，导致dealloc永远不会被调用，这个类就永远无法被释放。比如可以在<code>viewDidDisappear</code>中调用，这样当类需要被回收的时候就可以正常进入dealloc中了。</p>
+<h5 id="调用一个类的静态方法需不需要release？"><a href="#调用一个类的静态方法需不需要release？" class="headerlink" title="调用一个类的静态方法需不需要release？"></a>调用一个类的静态方法需不需要release？</h5><p>静态方法，就是类方法，不需要，类方法对象放在autorelease中</p>
+<h5 id="static作用？"><a href="#static作用？" class="headerlink" title="static作用？"></a>static作用？</h5><ol>
+<li>函数体内 static 变量的作用范围为该函数体，不同于 auto 变量，该变量的内存只被分配一次，因此其值在下次调用时仍维持上次的值；</li>
+<li>在模块内的 static 全局变量可以被模块内所用函数访问，但不能被模块外其它函数访问；</li>
+<li>在模块内的 static 函数只可被这一模块内的其它函数调用，这个函数的使用范围被限制在声明<br>它的模块内；</li>
+<li>在类中的 static 成员变量属于整个类所拥有，对类的所有对象只有一份拷贝；</li>
+<li>在类中的 static 成员函数属于整个类所拥有，这个函数不接收 this 指针，因而只能访问类的static 成员变量。</li>
+</ol>
+<h5 id="NSObject的load和initialize方法"><a href="#NSObject的load和initialize方法" class="headerlink" title="NSObject的load和initialize方法"></a>NSObject的<code>load</code>和<code>initialize</code>方法</h5><h6 id="共同特点"><a href="#共同特点" class="headerlink" title="共同特点"></a>共同特点</h6><ul>
+<li>在不考虑开发者主动使用的情况下，系统最多会调用一次</li>
+<li>如果父类和子类都被调用，父类的调用一定在子类之前</li>
+<li>都是为了应用运行提前创建合适的运行环境</li>
+<li>在使用时都不要过重地依赖于这两个方法，除非真正必要</li>
+</ul>
+<h6 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h6><ol>
+<li><p><code>load</code>方法</p>
+<ul>
+<li><p>调用时机比较早，运行环境有不确定因素。具体说来，在iOS上通常就是App启动时进行加载，但当load调用的时候，并不能保证所有类都加载完成且可用，必要时还要自己负责做auto release处理。对于有依赖关系的两个库中，被依赖的类的load会优先调用。但在一个库之内，调用顺序是不确定的。</p>
+</li>
+<li><p>对于一个类而言，没有load方法实现就不会调用，不会考虑对NSObject的继承。</p>
+</li>
+<li><p>一个类的load方法不用写明<code>[super load]</code>，父类就会收到调用，并且在子类之前。</p>
+</li>
+<li><p>Category的load也会收到调用，但顺序上在主类的load调用之后。</p>
+</li>
+<li><p>不会直接触发initialize的调用。</p>
+</li>
+</ul>
+</li>
+<li><p><code>initialize</code>方法相关要点</p>
+<ul>
+<li><p>initialize的自然调用是在第一次主动使用当前类的时候。</p>
+</li>
+<li><p>在initialize方法收到调用时，运行环境基本健全。</p>
+</li>
+<li><p>initialize的运行过程中是能保证线程安全的。</p>
+</li>
+<li><p>和load不同，即使子类不实现initialize方法，也会把父类的实现继承过来调用一遍。注意的是在此之前，父类的方法已经被执行过一次了，同样不需要super调用。</p>
+</li>
+<li><p>由于initialize的这些特点，使得其应用比load要略微广泛一些。可用来做一些初始化工作，或者单例模式的一种实现方案。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h5 id="能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"><a href="#能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？" class="headerlink" title="能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？"></a>能否向编译后得到的类中增加实例变量？能否向运行时创建的类中添加实例变量？为什么？</h5><p>不能向编译后得到的类中增加实例变量；</p>
+<p>但能向运行时创建的类中添加实例变量；</p>
+<p>因为编译后的类已经注册在 runtime 中，类结构体中的 <code>objc_ivar_list</code> 实例变量的链表 和 <code>instance_size</code> 实例变量的内存大小已经确定，同时runtime 会调用 <code>class_setIvarLayout</code> 或 <code>class_setWeakIvarLayout</code> 来处理<code>strong</code>, <code>weak</code> 引用。所以不能向存在的类中添加实例变量；</p>
+<p>运行时创建的类是可以添加实例变量，调用 <code>class_addIvar</code> 函数。但是得在调用 <code>objc_allocateClassPair</code> 之后，<code>objc_registerClassPair</code> 之前，原因同上。</p>
+<h5 id="什么是事件响应链，点击屏幕时是如何互动的，事件的传递。"><a href="#什么是事件响应链，点击屏幕时是如何互动的，事件的传递。" class="headerlink" title="什么是事件响应链，点击屏幕时是如何互动的，事件的传递。"></a>什么是事件响应链，点击屏幕时是如何互动的，事件的传递。</h5><p><img data-src="C22A44A31C3BB834BCE94FD8FD17B3CE.jpg" alt="IMAGE"></p>
+<p>对于IOS设备用户来说，他们操作设备的方式主要有三种：<strong>触摸屏幕</strong>、<strong>晃动设备</strong>、<strong>通过遥控设施控制设备</strong>。对应的事件类型有以下三种：</p>
+<ol>
+<li><p>触屏事件(Touch Event)</p>
+</li>
+<li><p>运动事件(Motion Event)</p>
+</li>
+<li><p>远端控制事件(Remote-Control Event)</p>
+</li>
+</ol>
+<h6 id="响应者链-Responder-Chain"><a href="#响应者链-Responder-Chain" class="headerlink" title="响应者链(Responder Chain)"></a>响应者链(Responder Chain)</h6><p><strong>响应者链条(Responder Chain):</strong> 是由多个响应者对象连接起来的链条</p>
+<p><strong>响应者对象(Responder Object):</strong> 指的是有响应和处理事件能力的对象。响应者链就是由一系列的响应者对象构成的一个层次结构。</p>
+<p>UIResponder是所有响应对象的基类，在UIResponder类中定义了处理上述各种事件的接口。我们熟悉的<code>UIApplication</code>、 <code>UIViewController</code>、<code>UIWindow</code>和所有继承自UIView的UIKit类都直接或间接的继承自UIResponder，所以它们的实例都是可以构成响应者链的响应者对象。</p>
+<h6 id="响应者链的特点"><a href="#响应者链的特点" class="headerlink" title="响应者链的特点:"></a>响应者链的特点:</h6><ol>
+<li>响应者链通常是由视图（UIView）构成的；</li>
+<li>一个视图的下一个响应者是它视图控制器（UIViewController）（如果有的话），然后再转给它的父视图（Super View）；</li>
+<li>视图控制器（如果有的话）的下一个响应者为其管理的视图的父视图；</li>
+<li>单例的窗口（UIWindow）的内容视图将指向窗口本身作为它的下一个响应者</li>
+<li>需要指出的是，Cocoa Touch应用不像Cocoa应用，它只有一个UIWindow对象，因此整个响应者链要简单一点；</li>
+<li>单例的应用（UIApplication）是一个响应者链的终点，它的下一个响应者指向nil，以结束整个循环。</li>
+</ol>
+<h6 id="点击屏幕时是如何互动的"><a href="#点击屏幕时是如何互动的" class="headerlink" title="点击屏幕时是如何互动的"></a>点击屏幕时是如何互动的</h6><p>iOS系统检测到手指触摸(Touch)操作时会将其打包成一个UIEvent对象，并放入当前活动Application的事件队列，单例的UIApplication会从事件队列中取出触摸事件并传递给单例的UIWindow来处理，UIWindow对象首先会使用<code>hitTest:withEvent:</code>方法寻找此次Touch操作初始点所在的视图(View)，即需要将触摸事件传递给其处理的视图，这个过程称之为<code>hit-test view</code>。</p>
+<p>UIWindow实例对象会首先在它的内容视图上调用<code>hitTest:withEvent:</code>，此方法会在其视图层级结构中的每个视图上调用<code>pointInside:withEvent:</code>（该方法用来判断点击事件发生的位置是否处于当前视图范围内，以确定用户是不是点击了当前视图），如果<code>pointInside:withEvent:</code>返回YES，则继续逐级调用，直到找到touch操作发生的位置，这个视图也就是要找的<code>hit-test view</code>。</p>
+<p><code>hitTest:withEvent:</code>方法的处理流程如下:</p>
+<ol>
+<li>首先调用当前视图的<code>pointInside:withEvent:</code>方法判断触摸点是否在当前视图内；</li>
+<li>若返回NO,则<code>hitTest:withEvent:</code>返回nil;若返回YES,则向当前视图的所有子视图(subviews)发送<code>hitTest:withEvent:</code>消息，</li>
+<li>所有子视图的遍历顺序是从最顶层视图一直到到最底层视图，即从subviews数组的末尾向前遍历，直到有子视图返回非空对象或者全部子视图遍历完毕；若第一次有子视图返回非空对象，则<code>hitTest:withEvent:</code>方法返回此对象，处理结束；如所有子视图都返回非，则<code>hitTest:withEvent:</code>方法返回自身(self)。</li>
+</ol>
+<p>事件的传递和响应分两个链：</p>
+<p>**传递链:**由系统向离用户最近的view传递。<code>UIKit</code> –&gt; <code>active app’s event queue</code> –&gt; <code>window</code> –&gt; <code>root view</code> –&gt; <code>…</code> –&gt;<code>lowest view</code></p>
+<p>**响应链:**由离用户最近的view向系统传递。<code>initial view</code> –&gt; <code>super view</code> –&gt; <code>…</code> –&gt; <code>view controller</code> –&gt; <code>window</code> –&gt; <code>Application</code></p>
+<h5 id="量数据表的优化方案"><a href="#量数据表的优化方案" class="headerlink" title="量数据表的优化方案"></a>量数据表的优化方案</h5><ol>
+<li><p>对查询进行优化，要尽量避免全表扫描，首先应考虑在 <code>where</code> 及 <code>order by</code> 涉及的列上建立索引。</p>
+</li>
+<li><p>应尽量避免在 <code>where</code> 子句中对字段进行 <code>null</code> 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p> 最好不要给数据库留NULL，尽可能的使用 NOT NULL填充数据库.</p>
+<p> 备注、描述、评论之类的可以设置为 NULL，其他的，最好不要使用NULL。</p>
+<p> 不要以为 NULL 不需要空间，比如：char(100) 型，在字段建立时，空间就固定了， 不管是否插入值（NULL也包含在内），都是占用 100个字符的空间的，如果是varchar这样的变长字段， null 不占用空间。</p>
+<p> 可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="number">0</span></span><br></pre></td></tr></table></figure></li>
+<li><p>应尽量避免在 <code>where</code> 子句中使用 <code>!=</code> 或 <code>&lt;&gt;</code> 操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
+</li>
+<li><p>应尽量避免在 <code>where</code> 子句中使用 <code>or</code> 来连接条件，如果一个字段有索引，一个字段没有索引，将导致引擎放弃使用索引而进行全表扫描，如：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="number">10</span> <span class="keyword">or</span> Name<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span></span><br><span class="line">```<span class="keyword">sql</span></span><br><span class="line">可以这样查询:</span><br><span class="line">```<span class="keyword">sql</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="number">10</span> <span class="keyword">union</span> <span class="keyword">all</span> <span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> Name<span class="operator">=</span><span class="string">&#x27;admin&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>in</code> 和 <code>not in</code> 也要慎用，否则会导致全表扫描，如:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+
+<p> 对于连续的数值，能用 <code>between</code> 就不要用 <code>in</code> 了：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p> 很多时候用 <code>exists</code> 代替 <code>in</code> 是一个好的选择：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> num <span class="keyword">from</span> a <span class="keyword">where</span> num <span class="keyword">in</span> (<span class="keyword">select</span> num <span class="keyword">from</span> b)</span><br></pre></td></tr></table></figure>
+<p> 用下面的语句替换:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> num <span class="keyword">from</span> a <span class="keyword">where</span> <span class="keyword">exists</span> (<span class="keyword">select</span> <span class="number">1</span> <span class="keyword">from</span> b <span class="keyword">where</span> num<span class="operator">=</span>a.num)</span><br></pre></td></tr></table></figure></li>
+<li><p>下面的查询也将导致全表扫描：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> name <span class="keyword">like</span> ‘<span class="operator">%</span>abc<span class="operator">%</span>’</span><br></pre></td></tr></table></figure>
+<p> 若要提高效率，可以考虑全文检索。</p>
+</li>
+<li><p>如果在 <code>where</code> 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然 而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="variable">@num</span></span><br></pre></td></tr></table></figure>
+<p> 可以改为强制查询使用索引：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">with</span> (index(索引名)) <span class="keyword">where</span> num<span class="operator">=</span><span class="variable">@num</span></span><br></pre></td></tr></table></figure>
+
+<p> 应尽量避免在 <code>where</code> 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">/</span><span class="number">2</span><span class="operator">=</span><span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p> 应改为:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> num<span class="operator">=</span><span class="number">100</span><span class="operator">*</span><span class="number">2</span></span><br></pre></td></tr></table></figure></li>
+<li><p>应尽量避免在<code>where</code>子句中对字段进行函数操作，这将导致引擎放弃使用索引而进行全表扫描。如：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> <span class="built_in">substring</span>(name,<span class="number">1</span>,<span class="number">3</span>)<span class="operator">=</span>’abc’ <span class="operator">-</span>–name以abc开头的id</span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> datediff(<span class="keyword">day</span>,createdate,’<span class="number">2015</span><span class="number">-11</span><span class="number">-30</span>′)<span class="operator">=</span><span class="number">0</span> <span class="operator">-</span>–‘<span class="number">2015</span><span class="number">-11</span><span class="number">-30</span>’ <span class="comment">--生成的id</span></span><br></pre></td></tr></table></figure>
+<p> 应改为:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> name <span class="keyword">like</span><span class="string">&#x27;abc%&#x27;</span></span><br><span class="line"><span class="keyword">select</span> id <span class="keyword">from</span> t <span class="keyword">where</span> createdate<span class="operator">&gt;=</span><span class="string">&#x27;2005-11-30&#x27;</span> <span class="keyword">and</span> createdate<span class="operator">&lt;</span><span class="string">&#x27;2005-12-1&#x27;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>不要在 where 子句中的<code>=</code>左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。</p>
+</li>
+<li><p>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+</li>
+<li><p>不要写一些没有意义的查询，如需要生成一个空表结构：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> col1,col2 <span class="keyword">into</span> #t <span class="keyword">from</span> t where1<span class="operator">=</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p> 这类代码不会返回任何结果集，但是会消耗系统资源的，应改成这样：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> #t(…)</span><br></pre></td></tr></table></figure></li>
+<li><p><code>Update</code> 语句，如果只更改1、2个字段，不要<code>Update</code>全部字段，否则频繁调用会引起明显的性能消耗，同时带来大量日志。</p>
+</li>
+<li><p>对于多张大数据量（这里几百条就算大了）的表<code>JOIN</code>，要先分页再<code>JOIN</code>，否则逻辑读会很高，性能很差。</p>
+</li>
+<li><p><code>select count(*) from table;</code>这样不带任何条件的count会引起全表扫描，并且没有任何业务意义，是一定要杜绝的。</p>
+</li>
+<li><p>索引并不是越多越好，索引固然可以提高相应的 <code>select</code> 的效率，但同时也降低了 <code>insert</code> 及 <code>update</code> 的效率，因为 <code>insert</code> 或 <code>update</code> 时有可能会重建索引，所以怎样建索引需要慎重考虑，视具体情况而定。一个表的索引数最好不要超过6个，若太多则应考虑一些不常使用到的列上建的索引是否有必要。</p>
+</li>
+<li><p>应尽可能的避免更新 <code>clustered</code> 索引数据列，因为 <code>clustered</code> 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 <code>clustered</code> 索引数据列，那么需要考虑是否应将该索引建为 <code>clustered</code> 索引。</p>
+</li>
+<li><p>尽量使用数字型字段，若只含数值信息的字段尽量不要设计为字符型，这会降低查询和连接的性能，并会增加存储开销。这是因为引擎在处理查询和连 接时会逐个比较字符串中每一个字符，而对于数字型而言只需要比较一次就够了。</p>
+</li>
+<li><p>尽可能的使用 <code>varchar</code>/<code>nvarchar</code> 代替 <code>char</code>/<code>nchar</code> ，因为首先变长字段存储空间小，可以节省存储空间，其次对于查询来说，在一个相对较小的字段内搜索效率显然要高些。</p>
+</li>
+<li><p>任何地方都不要使用</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t</span><br></pre></td></tr></table></figure>
+<p> 用具体的字段列表代替“*”，不要返回用不到的任何字段。</p>
+</li>
+<li><p>尽量使用表变量来代替临时表。如果表变量包含大量数据，请注意索引非常有限（只有主键索引）。</p>
+</li>
+<li><p>避免频繁创建和删除临时表，以减少系统表资源的消耗。临时表并不是不可使用，适当地使用它们可以使某些例程更有效，例如，当需要重复引用大型表或常用表中的某个数据集时。但是，对于一次性事件， 最好使用导出表。</p>
+</li>
+<li><p>在新建临时表时，如果一次性插入数据量很大，那么可以使用 <code>select into</code> 代替 <code>create table</code>，避免造成大量 log ，以提高速度；如果数据量不大，为了缓和系统表的资源，应先<code>create table</code>，然后<code>insert</code>。</p>
+</li>
+<li><p>如果使用到了临时表，在存储过程的最后务必将所有的临时表显式删除，先 <code>truncate table</code> ，然后 <code>drop table</code> ，这样可以避免系统表的较长时间锁定。</p>
+</li>
+<li><p>尽量避免使用游标，因为游标的效率较差，如果游标操作的数据超过1万行，那么就应该考虑改写。</p>
+</li>
+<li><p>使用基于游标的方法或临时表方法之前，应先寻找基于集的解决方案来解决问题，基于集的方法通常更有效。</p>
+</li>
+<li><p>与临时表一样，游标并不是不可使用。对小型数据集使用 <code>FAST_FORWARD</code> 游标通常要优于其他逐行处理方法，尤其是在必须引用几个表才能获得所需的数据时。在结果集中包括“合计”的例程通常要比使用游标执行的速度快。如果开发时 间允许，基于游标的方法和基于集的方法都可以尝试一下，看哪一种方法的效果更好。</p>
+</li>
+<li><p>在所有的存储过程和触发器的开始处设置 <code>SET NOCOUNT ON</code> ，在结束时设置 <code>SET NOCOUNT OFF</code>。无需在执行存储过程和触发器的每个语句后向客户端发送 <code>DONE_IN_PROC</code> 消息。</p>
+</li>
+<li><p>尽量避免大事务操作，提高系统并发能力。</p>
+</li>
+<li><p>尽量避免向客户端返回大数据量，若数据量过大，应该考虑相应需求是否合理。</p>
+<p> 实际案例分析：拆分大的 <code>DELETE</code> 或<code>INSERT</code> 语句，批量提交SQL语句</p>
+<p> 如果你需要在一个在线的网站上去执行一个大的 <code>DELETE</code> 或 <code>INSERT</code> 查询，你需要非常小心，要避免你的操作让你的整个网站停止相应。因为这两个操作是会锁表的，表一锁住了，别的操作都进不来了。</p>
+<p> Apache 会有很多的子进程或线程。所以，其工作起来相当有效率，而我们的服务器也不希望有太多的子进程，线程和数据库链接，这是极大的占服务器资源的事情，尤其是内存。</p>
+<p> 如果你把你的表锁上一段时间，比如30秒钟，那么对于一个有很高访问量的站点来说，这30秒所积累的访问进程/线程，数据库链接，打开的文件数，可能不仅仅会让你的WEB服务崩溃，还可能会让你的整台服务器马上挂了。</p>
+<p> 所以，如果你有一个大的处理，你一定把其拆分，使用 <code>LIMIT oracle(rownum)</code>,<code>sqlserver(top)</code>条件是一个好的方法。下面是一个mysql示例：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">while(<span class="number">1</span>)&#123;<span class="operator">/</span><span class="operator">/</span>每次只做<span class="number">1000</span>条</span><br><span class="line">mysql_query(“<span class="keyword">delete</span> <span class="keyword">from</span> logs <span class="keyword">where</span> log_date <span class="operator">&lt;=</span> ’<span class="number">2015</span><span class="number">-11</span><span class="number">-01</span>’ limit <span class="number">1000</span>”);</span><br><span class="line">if(mysql_affected_rows() <span class="operator">=</span><span class="operator">=</span> <span class="number">0</span>)&#123;<span class="operator">/</span><span class="operator">/</span>删除完成，退出！break；</span><br><span class="line">&#125;<span class="operator">/</span><span class="operator">/</span>每次暂停一段时间，释放表让其他进程<span class="operator">/</span>线程访问。</span><br><span class="line">usleep(<span class="number">50000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Restful架构"><a href="#Restful架构" class="headerlink" title="Restful架构"></a>Restful架构</h4><p>REST是一种架构风格，其核心是面向资源，REST专门针对网络应用设计和开发方式，以降低开发的复杂性，提高系统的可伸缩性。REST提出<strong>设计概念和准则</strong>为:</p>
+<ol>
+<li>网络上的所有事物都可以被抽象为资源(resource)</li>
+<li>每一个资源都有唯一的资源标识(<code>resource identifier</code>)，对资源的操作不会改变这些标识</li>
+<li>所有的操作都是无状态的</li>
+</ol>
+<p>REST简化开发，其架构遵循<strong>CRUD</strong>原则，该原则告诉我们对于资源(包括网络资源)只需要四种行为：<strong>创建</strong>，<strong>获取</strong>，<strong>更新</strong>和<strong>删除</strong>就可以完成相关的操作和处理。您可以通过统一资源标识符（<code>Universal Resource Identifier</code>，URI）来识别和定位资源，并且针对这些资源而执行的操作是通过 HTTP 规范定义的。其核心操作只有<strong>GET</strong>, <strong>PUT</strong>, <strong>POST</strong>, <strong>DELETE</strong>。</p>
+<p>由于REST强制所有的操作都必须是<code>stateless</code>的，这就没有上下文的约束，如果做分布式，集群都不需要考虑上下文和会话保持的问题。极大的提高系统的可伸缩性。</p>
+<p><strong>RESTful架构:</strong></p>
+<ol>
+<li>每一个URI代表一种资源；</li>
+<li>客户端和服务器之间，传递这种资源的某种表现层；</li>
+<li>客户端通过四个HTTP动词，对服务器端资源进行操作，实现”表现层状态转化”。</li>
+</ol>
+<h5 id="SDWebImage"><a href="#SDWebImage" class="headerlink" title="SDWebImage"></a>SDWebImage</h5><h6 id="分析-SDWebImage-的原理"><a href="#分析-SDWebImage-的原理" class="headerlink" title="分析 SDWebImage 的原理"></a>分析 SDWebImage 的原理</h6><p>这个类库提供一个<code>UIImageView</code>类别以支持加载来自网络的远程图片。具有<strong>缓存管理</strong>、<strong>异步下载</strong>、<strong>同一个URL下载次数控制</strong>和<strong>优化</strong>等特征。</p>
+<h6 id="SDWebImage-加载图片的流程"><a href="#SDWebImage-加载图片的流程" class="headerlink" title="SDWebImage 加载图片的流程"></a>SDWebImage 加载图片的流程</h6><ol>
+<li><p>入口 <code>setImageWithURL:placeholderImage:options:</code> 会先把 <code>placeholderImage</code> 显示，然后 SDWebImageManager 根据 URL 开始处理图片。</p>
+</li>
+<li><p>进入 SDWebImageManager-&gt;<code>downloadWithURL:delegate:options:userInfo:</code>，交给 SDImageCache 从缓存查找图片是否已经下载 <code>queryDiskCacheForKey:delegate:userInfo:</code>.</p>
+</li>
+<li><p>先从内存图片缓存查找是否有图片，如果内存中已经有图片缓存，SDImageCacheDelegate 回调 <code>imageCache:didFindImage:forKey:userInfo:</code> 到 SDWebImageManager。</p>
+</li>
+<li><p>SDWebImageManagerDelegate 回调 <code>webImageManager:didFinishWithImage:</code> 到 UIImageView+WebCache 等前端展示图片。</p>
+</li>
+<li><p>如果内存缓存中没有，生成 NSInvocationOperation 添加到队列开始从硬盘查找图片是否已经缓存。</p>
+</li>
+<li><p>根据 URLKey 在硬盘缓存目录下尝试读取图片文件。这一步是在 NSOperation 进行的操作，所以回主线程进行结果回调 <code>notifyDelegate:</code>。</p>
+</li>
+<li><p>如果上一操作从硬盘读取到了图片，将图片添加到内存缓存中（如果空闲内存过小，会先清空内存缓存）。SDImageCacheDelegate 回调 <code>imageCache:didFindImage:forKey:userInfo:</code>。进而回调展示图片。</p>
+</li>
+<li><p>如果从硬盘缓存目录读取不到图片，说明所有缓存都不存在该图片，需要下载图片，回调 <code>imageCache:didNotFindImageForKey:userInfo:</code>。</p>
+</li>
+<li><p>共享或重新生成一个下载器 SDWebImageDownloader 开始下载图片。</p>
+</li>
+<li><p>图片下载由 NSURLConnection 来做，实现相关 delegate 来判断图片下载中、下载完成和下载失败。</p>
+</li>
+<li><p><code>connection:didReceiveData:</code> 中利用 ImageIO 做了按图片下载进度加载效果。</p>
+</li>
+<li><p><code>connectionDidFinishLoading:</code> 数据下载完成后交给 SDWebImageDecoder 做图片解码处理。</p>
+</li>
+<li><p>图片解码处理在一个 NSOperationQueue 完成，不会拖慢主线程 UI。如果有需要对下载的图片进行二次处理，最好也在这里完成，效率会好很多。</p>
+</li>
+<li><p>在主线程 <code>notifyDelegateOnMainThreadWithInfo:</code> 宣告解码完成，<code>imageDecoder:didFinishDecodingImage:userInfo:</code> 回调给 SDWebImageDownloader。</p>
+</li>
+<li><p><code>imageDownloader:didFinishWithImage:</code> 回调给 SDWebImageManager 告知图片下载完成。</p>
+</li>
+<li><p>通知所有的 downloadDelegates 下载完成，回调给需要的地方展示图片。</p>
+</li>
+<li><p>将图片保存到 SDImageCache 中，内存缓存和硬盘缓存同时保存。写文件到硬盘也在以单独 NSInvocationOperation 完成，避免拖慢主线程。</p>
+</li>
+<li><p>SDImageCache 在初始化的时候会注册一些消息通知，在内存警告或退到后台的时候清理内存图片缓存，应用结束的时候清理过期图片。</p>
+</li>
+<li><p>SDWebImage 也提供了 <code>UIButton+WebCache</code> 和 <code>MKAnnotationView+WebCache</code>，方便使用。</p>
+</li>
+<li><p>SDWebImagePrefetcher 可以预先下载图片，方便后续使用。</p>
+</li>
+</ol>
+<h6 id="SDWebImage库的作用"><a href="#SDWebImage库的作用" class="headerlink" title="SDWebImage库的作用"></a>SDWebImage库的作用</h6><p>通过对UIImageView的类别扩展来实现异步加载替换图片的工作。</p>
+<p>主要用到的对象:</p>
+<ol>
+<li>UIImageView (WebCache)类别，入口封装，实现读取图片完成后的回调</li>
+<li>SDWebImageManager，对图片进行管理的中转站，记录那些图片正在读取。<br>向下层读取Cache（调用SDImageCache），或者向网络读取对象（调用SDWebImageDownloader） 。<br>实现SDImageCache和SDWebImageDownloader的回调。</li>
+<li>SDImageCache，根据URL的MD5摘要对图片进行存储和读取（实现存在内存中或者存在硬盘上两种实现）<br>实现图片和内存清理工作。</li>
+<li>SDWebImageDownloader，根据URL向网络读取数据（实现部分读取和全部读取后再通知回调两种方式）</li>
+</ol>
+<p>其他类:<br>SDWebImageDecoder:异步对图像进行了一次解压</p>
+<h6 id="SDImageCache是怎么做数据管理的"><a href="#SDImageCache是怎么做数据管理的" class="headerlink" title="SDImageCache是怎么做数据管理的?"></a>SDImageCache是怎么做数据管理的?</h6><p>SDImageCache分两个部分，一个是<strong>内存层面</strong>的，一个是<strong>硬盘层面</strong>的。</p>
+<p>内存层面的相当是个缓存器，以Key-Value的形式存储图片。当内存不够的时候会清除所有缓存图片。用搜索文件系统的方式做管理，文件替换方式是以时间为单位，剔除时间大于一周的图片文件。</p>
+<p>当SDWebImageManager向SDImageCache要资源时，先搜索内存层面的数据，如果有直接返回，没有的话去访问磁盘，将图片从磁盘读取出来，然后做Decoder，将图片对象放到内存层面做备份，再返回调用层。</p>
+<h6 id="为啥必须做Decoder"><a href="#为啥必须做Decoder" class="headerlink" title="为啥必须做Decoder?"></a>为啥必须做Decoder?</h6><p>由于UIImage的<code>imageWithData</code>函数是每次画图的时候才将Data解压成ARGB的图像，所以在每次画图的时候，会有一个解压操作，这样效率很低，但是只有瞬时的内存需求。为了提高效率通过SDWebImageDecoder将包装在Data下的资源解压，然后画在另外一张图片上，这样这张新图片就不再需要重复解压了。</p>
+<p>这种做法是典型的<strong>空间换时间</strong>的做法。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/25/URL Scheme/" rel="bookmark">URL Scheme</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - Run Loop/" rel="bookmark">iOS - Run Loop</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/27/iOS - 动画篇/" rel="bookmark">iOS - 动画篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2018/01/08/iOS - 推送/" rel="bookmark">iOS - 推送</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2017/12/26/iOS - 演变『简略』/" rel="bookmark">iOS - 演变『简略』</a></div>
+    </li>
+  </ul>
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.png" alt="lxthyme 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.png" alt="lxthyme 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="https://twitter.com/lxthyme">
+          <span class="icon">
+            <i class="fab fa-twitter"></i>
+          </span>
+
+          <span class="label">Twitter</span>
+        </a>
+      </div>
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ios-basic/" rel="tag"># iOS Basic</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/01/05/iOS%20-%20NSInvocation/" rel="prev" title="iOS - NSInvocation">
+                  <i class="fa fa-chevron-left"></i> iOS - NSInvocation
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/01/08/iOS%20-HTTP%20%E7%9B%B8%E5%85%B3/" rel="next" title="iOS -HTTP 相关">
+                  iOS -HTTP 相关 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lxthyme</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+  <script src="https://embed.widgetpack.com/widget.js" async></script>
+  <script class="next-config" data-name="rating" type="application/json">{&quot;enable&quot;:true,&quot;id&quot;:null,&quot;color&quot;:&quot;#fc6423&quot;}</script>
+  <script src="/js/third-party/rating.js"></script>
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
